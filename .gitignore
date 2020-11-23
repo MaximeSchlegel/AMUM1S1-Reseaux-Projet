@@ -4,3 +4,5 @@ out
 #infra ignore
 Box
 .vagrant
+code-ws.code-workspace
+.vscode/c_cpp_properties.json
