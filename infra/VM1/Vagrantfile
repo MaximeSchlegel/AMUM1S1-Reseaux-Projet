@@ -31,9 +31,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "1024"]
     #vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
     vb.customize ["modifyvm", :id, "--vram", "16"]
-
+    
     # Copier coller, pour virtualbox >= 6.1
-    # vb.customize 'post-boot', ['controlvm', :id, 'clipboard', 'mode', 'bidirectional']
+    vb.customize 'post-boot', ['controlvm', :id, 'clipboard', 'mode', 'bidirectional']
   end
 
 end

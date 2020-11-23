@@ -1,8 +1,6 @@
 # build ignore
 out
 
-#vagrant ignore
-.vagrant
-
 #infra ignore
-infra/Box
+Box
+.vagrant
