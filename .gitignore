@@ -4,5 +4,14 @@ out
 #infra ignore
 Box
 .vagrant
-code-ws.code-workspace
-.vscode/c_cpp_properties.json
+
+#vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
