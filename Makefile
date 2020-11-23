@@ -19,10 +19,14 @@ INCLUDES := $(wildcard $(SRCDIR)/*.h)
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 rm       = rm -f
 
-.PHONY: all folder
-all: $(BINDIR)/$(TARGET) folders
-folders :
+.PHONY: all
+all: folders $(BINDIR)/$(TARGET) 
+
+.PHONY: folders
+folders : $(OBJDIR) $(BINDIR)
+$(OBJDIR) :
 	mkdir -p $(OBJDIR)
+$(BINDIR) :
 	mkdir -p $(BINDIR)
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
