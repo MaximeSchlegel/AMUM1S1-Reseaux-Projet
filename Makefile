@@ -23,7 +23,7 @@ rm       = rm -f
 all: folders $(BINDIR)/$(TARGET) 
 
 .PHONY: folders
-folders : $(OBJDIR) $(BINDIR)
+folders : $(BINDIR) $(OBJDIR)
 $(OBJDIR) :
 	mkdir -p $(OBJDIR)
 $(BINDIR) :
