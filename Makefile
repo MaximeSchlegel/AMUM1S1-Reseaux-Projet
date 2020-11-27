@@ -1,4 +1,4 @@
-TARGET   = tunalloc
+TARGET   = iftun
 
 # Compiler
 CC       = gcc

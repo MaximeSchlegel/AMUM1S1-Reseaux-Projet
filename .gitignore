@@ -3,7 +3,9 @@ out
 
 #infra ignore
 Box
-.vagrant
+infra/**/.vagrant
+infra/**/tunalloc
+infra/**/configure-tun0.sh
 
 #vscode
 .vscode/*

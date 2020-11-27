@@ -24,10 +24,10 @@ int tun_alloc(char *dev)
     memset(&ifr, 0, sizeof(ifr));
 
     /* Flags: IFF_TUN   - TUN device (no Ethernet headers) 
-   *        IFF_TAP   - TAP device  
-   *
-   *        IFF_NO_PI - Do not provide packet information  
-   */
+     *        IFF_TAP   - TAP device  
+     *
+     *        IFF_NO_PI - Do not provide packet information  
+     */
     ifr.ifr_flags = IFF_TUN;
     if (*dev)
         strncpy(ifr.ifr_name, dev, IFNAMSIZ);
@@ -40,6 +40,8 @@ int tun_alloc(char *dev)
     strcpy(dev, ifr.ifr_name);
     return fd;
 }
+
+
 
 int main(int argc, char **argv)
 {
