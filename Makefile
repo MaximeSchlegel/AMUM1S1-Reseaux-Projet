@@ -9,7 +9,7 @@ LINKER   = gcc
 LFLAGS   = -Wall -I. -lm
 
 # Directories
-SRCDIR   = src
+SRCDIR   = iftun/src
 OBJDIR   = out/obj
 BINDIR   = out
 
