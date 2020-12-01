@@ -1,9 +1,3 @@
-#include "../include/iftun.h"
-
-/* echo / serveur simpliste
-   Master Informatique 2012 -- Université Aix-Marseille  
-   Emmanuel Godard
-*/
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +5,17 @@
 #include <sys/socket.h>
 #include <string.h>
 #include <netdb.h>
+
+#include "iftun.h"
+#include "extreminte.h"
+
+
+/* Modified from:
+      echo / serveur simpliste
+      Master Informatique 2012 -- Université Aix-Marseille  
+      Emmanuel Godard
+*/
+
 
 /* taille maximale des lignes */
 #define MAXLIGNE 80
@@ -55,13 +60,10 @@ void echo(int f, char *hote, char *port)
     fprintf(stderr, "[%s:%s](%i): Terminé.\n", hote, port, pid);
 }
 
-int ext-out() {
+int ext_out(char* port,
+            int outputFD,
+            int verbose) {
     
-}
-
-
-int main(int argc, char *argv[])
-{
     int s, n;                                         /* descripteurs de socket */
     int len, on;                                      /* utilitaires divers */
     struct addrinfo *resol;                           /* résolution */
@@ -72,21 +74,13 @@ int main(int argc, char *argv[])
     char *port;                /* Port pour le service */
     int err;                   /* code d'erreur */
 
-    /* Traitement des arguments */
-    if (argc != 2)
-    { /* erreur de syntaxe */
-        printf("Usage: %s port\n", argv[0]);
-        exit(1);
-    }
-
-    port = argv[1];
-    fprintf(stderr, "Ecoute sur le port %s\n", port);
     err = getaddrinfo(NULL, port, &indic, &resol);
     if (err < 0)
     {
         fprintf(stderr, "Résolution: %s\n", gai_strerror(err));
         exit(2);
     }
+    if (verbose) printf("Ecoute sur le port %s\n", port);
 
     /* Création de la socket, de type TCP / IP */
     if ((s = socket(resol->ai_family, resol->ai_socktype, resol->ai_protocol)) < 0)
@@ -94,7 +88,7 @@ int main(int argc, char *argv[])
         perror("allocation de socket");
         exit(3);
     }
-    fprintf(stderr, "le n° de la socket est : %i\n", s);
+    if (verbose) printf("le n° de la socket est : %i\n", s);
 
     /* On rend le port réutilisable rapidement /!\ */
     on = 1;
@@ -103,7 +97,7 @@ int main(int argc, char *argv[])
         perror("option socket");
         exit(4);
     }
-    fprintf(stderr, "Option(s) OK!\n");
+    if (verbose) printf("Option(s) OK!\n");
 
     /* Association de la socket s à l'adresse obtenue par résolution */
     if (bind(s, resol->ai_addr, sizeof(struct sockaddr_in)) < 0)
@@ -112,7 +106,7 @@ int main(int argc, char *argv[])
         exit(5);
     }
     freeaddrinfo(resol); /* /!\ Libération mémoire */
-    fprintf(stderr, "bind!\n");
+    if (verbose) printf("bind!\n");
 
     /* la socket est prête à recevoir */
     if (listen(s, SOMAXCONN) < 0)
@@ -120,29 +114,28 @@ int main(int argc, char *argv[])
         perror("listen");
         exit(6);
     }
-    fprintf(stderr, "listen!\n");
+    if (verbose) printf("listen!\n");
 
     while (1)
     {
         /* attendre et gérer indéfiniment les connexions entrantes */
         len = sizeof(struct sockaddr_in);
-        if ((n = accept(s, (struct sockaddr *)&client, (socklen_t *)&len)) < 0)
-        {
+        if ((n = accept(s, (struct sockaddr *)&client, (socklen_t *)&len)) < 0) {
             perror("accept");
             exit(7);
         }
+        
         /* Nom réseau du client */
         char hotec[NI_MAXHOST];
         char portc[NI_MAXSERV];
+        
         err = getnameinfo((struct sockaddr *)&client, len, hotec, NI_MAXHOST, portc, NI_MAXSERV, 0);
-        if (err < 0)
-        {
+        if (err < 0) {
             fprintf(stderr, "résolution client (%i): %s\n", n, gai_strerror(err));
+        } else {
+            if (verbose) printf("accept! (%i) ip=%s port=%s\n", n, hotec, portc);
         }
-        else
-        {
-            fprintf(stderr, "accept! (%i) ip=%s port=%s\n", n, hotec, portc);
-        }
+
         /* traitement */
         echo(n, hotec, portc);
     }

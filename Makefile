@@ -9,12 +9,14 @@ LINKER   = gcc
 LFLAGS   = -Wall -I. -lm
 
 # Directories
-SRCDIR   = iftun/src
-OBJDIR   = out/obj
-BINDIR   = out
+SRCDIR = code/src
+TSTDIR = code/test
+OBJDIR = out/obj
+BINDIR = out
 
 # Files
 SOURCES  := $(wildcard $(SRCDIR)/$(TARGET).c)
+TESTS    := $(wildcard $(TSTDIR)/$(TARGET).c)
 INCLUDES := $(wildcard $(SRCDIR)/*.h)
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 rm       = rm -f
