@@ -86,11 +86,9 @@ int iftun(char *dev,
     }
 
     if (configScript) {
-        int cmd_size = 100; // TODO: compute the real size of the command
+        int cmd_size = 1000; // TODO: compute the real size of the command
         char *cmd = malloc(cmd_size);
         snprintf(cmd, cmd_size, "%s %s", configScript, dev);
-        // printf("%d\n", cmd_size);
-        // printf(cmd);
         system(cmd);
     } else {
         printf("Faire la configuration de %s...\n", dev);
@@ -98,10 +96,6 @@ int iftun(char *dev,
         getchar();
     }
 
-    // printf("Interface %s Configurée:\n", dev);
-    // system("ip addr");
-    // printf("Appuyez sur une touche pour lacer la lecture\n");
-    // getchar();
     continuousTransfert(tunfd, toFileDesc);
 
     return 0;
