@@ -50,6 +50,7 @@ test_iftun: folders $(OBJECTS)
 	@echo "test_iftun created successfully!"
 
 test_extremite: folders $(OBJECTS)
+	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite_in  $(OBJECTS) $(MNSDIR)/test_extremite_in.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite_out $(OBJECTS) $(MNSDIR)/test_extremite_out.c
 	@echo "test_extremite created successfully!"
 

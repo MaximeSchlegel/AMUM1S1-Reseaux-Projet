@@ -9,68 +9,29 @@
 #include "iftun.h"
 #include "extreminte.h"
 
-
-/* Modified from:
-      echo / serveur simpliste
-      Master Informatique 2012 -- Université Aix-Marseille  
-      Emmanuel Godard
-*/
-
-
 /* taille maximale des lignes */
 #define MAXLIGNE 80
 #define CIAO "Au revoir ...\n"
 
-/* echo des messages reçus (le tout via le descripteur f) */
-void echo(int f, char *hote, char *port)
-{
-    ssize_t lu;             /* nb d'octets reçus */
-    char msg[MAXLIGNE + 1]; /* tampons pour les communications */
-    char tampon[MAXLIGNE + 1];
-    int pid = getpid(); /* pid du processus */
-    int compteur = 0;
-
-    /* message d'accueil */
-    snprintf(msg, MAXLIGNE, "Bonjour %s! (vous utilisez le port %s)\n", hote, port);
-    /* envoi du message d'accueil */
-    send(f, msg, strlen(msg), 0);
-
-    do
-    { /* Faire echo et logguer */
-        lu = recv(f, tampon, MAXLIGNE, 0);
-        if (lu > 0) {
-            compteur++;
-            tampon[lu] = '\0';
-            /* log */
-            fprintf(stderr, "[%s:%s](%i): %3i :%s", hote, port, pid, compteur, tampon);
-            snprintf(msg, MAXLIGNE, "> %s", tampon);
-            /* echo vers le client */
-            send(f, msg, strlen(msg), 0);
-        }
-        else
-        {
-            break;
-        }
-    } while (1);
-
-    /* le correspondant a quitté */
-    send(f, CIAO, strlen(CIAO), 0);
-    close(f);
-    fprintf(stderr, "[%s:%s](%i): Terminé.\n", hote, port, pid);
-}
 
 int ext_out(char* port,
             int outputFD,
             int verbose) {
     
-    int serverSocket, clientSocket;                   /* descripteurs de socket */
-    int len, on;                                      /* utilitaires divers */
-    struct addrinfo *resol;                           /* résolution */
-    struct addrinfo indic = {AI_PASSIVE,              /* Toute interface */
-                             PF_INET, SOCK_STREAM, 0, /* IP mode connecté */
+    /* Modified from:
+     *   echo / serveur simpliste
+     *   Master Informatique 2012 -- Université Aix-Marseille  
+     *   Emmanuel Godard
+    */
+    
+    int serverSocket, clientSocket;                     /* descripteurs de socket */
+    int len, on;                                        /* utilitaires divers */
+    struct addrinfo *resol;                             /* résolution */
+    struct addrinfo indic = {AI_PASSIVE,                /* Toute interface */
+                             PF_INET, SOCK_STREAM, 0,   /* IP mode connecté */
                              0, NULL, NULL, NULL};
-    struct sockaddr_in client; /* adresse de socket du client */
-    int err;                   /* code d'erreur */
+    struct sockaddr_in client;                          /* adresse de socket du client */
+    int err;                                            /* code d'erreur */
 
     err = getaddrinfo(NULL, port, &indic, &resol);
     if (err < 0) {
@@ -136,5 +97,88 @@ int ext_out(char* port,
     }
 
     close(serverSocket);
+    return EXIT_SUCCESS;
+}
+
+
+int ext_in(char* tunName,
+           char *configScript,
+           char* serveurIP,
+           char* serveurPort,
+           int verbose) {
+    
+    /* Modified from:
+     *   echo / client simple
+     *   Master Informatique 2012 -- Université Aix-Marseille  
+     *   Emmanuel Godard
+    */
+    
+    char ip[NI_MAXHOST];    /* adresse IPv4 en notation pointée */
+    struct addrinfo *resol; /* struct pour la résolution de nom */
+    int socketClient;       /* descripteur de socket */
+
+    /* Résolution de l'hôte */
+    if ( getaddrinfo(serveurIP, serveurPort, NULL, &resol) < 0 ){
+        perror("Can't resolved serveur adresse");
+        exit(1);
+    }
+
+    /* On extrait l'addresse IP */
+    sprintf(ip, "%s", inet_ntoa(((struct sockaddr_in*)resol->ai_addr)->sin_addr));
+
+    /* Création de la socket, de type TCP / IP */
+    /* On ne considère que la première adresse renvoyée par getaddrinfo */
+    if ((socketClient=socket(resol->ai_family,resol->ai_socktype, resol->ai_protocol))<0) {
+        perror("allocation de socket");
+        exit(3);
+    }
+    if (verbose) printf("le n° de la socket est : %i\n",socketClient);
+
+    /* Connexion */
+    if (verbose) printf("Essai de connexion à %s (%s) sur le port %s\n\n", serveurIP, ip, serveurPort);
+    if (connect(socketClient, resol->ai_addr,sizeof(struct sockaddr_in))<0) {
+        perror("connexion");
+        exit(4);
+    }
+    freeaddrinfo(resol); /* /!\ Libération mémoire */
+
+    iftun(tunName, configScript, socketClient);
+
+    // /* Session */
+    // char tampon[MAXLIGNE + 3]; /* tampons pour les communications */
+    // ssize_t lu;
+    // int fini=0;
+    // while( 1 ) { 
+    //     /* Jusqu'à fermeture de la socket (ou de stdin)     */
+    //     /* recopier à l'écran ce qui est lu dans la socket  */
+    //     /* recopier dans la socket ce qui est lu dans stdin */
+
+    //     /* réception des données */
+    //     lu = recv(,tampon,MAXLIGNE,0); /* bloquant */
+    //     if (lu == 0 ) {
+    //         fprintf(stderr,"Connexion terminée par l'hôte distant\n");
+    //         break; /* On sort de la boucle infinie */
+    //     }
+    //     tampon[lu] = '\0';
+    //     printf("reçu: %s",tampon);
+    //     if ( fini == 1 )
+    //         break;  /* on sort de la boucle infinie*/
+    
+    //     /* recopier dans la socket ce qui est entré au clavier */    
+    //     if ( fgets(tampon,MAXLIGNE - 2,stdin) == NULL ){/* entrée standard fermée */
+    //         fini=1;
+    //         fprintf(stderr,"Connexion terminée !!\n");
+    //         fprintf(stderr,"Hôte distant informé...\n");
+    //         shutdown(s, SHUT_WR); /* terminaison explicite de la socket 
+	// 		                         dans le sens client -> serveur */
+    //         /* On ne sort pas de la boucle tout de suite ... */
+    //     }else{   /* envoi des données */
+    //         send(s,tampon,strlen(tampon),0);
+    //     }
+    // } 
+    /* Destruction de la socket */
+    close(socketClient);
+
+    if (verbose) printf("Fin de la session.\n");
     return EXIT_SUCCESS;
 }
