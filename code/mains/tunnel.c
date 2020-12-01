@@ -1,7 +1,11 @@
 #include "iftun.h"
 #include "extreminte.h"
-#include <stdlib.h>
+
+#include <unistd.h>
 #include <stdio.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 int main(int argc, char **argv) {
     char* configScriptPath = NULL;

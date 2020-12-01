@@ -4,8 +4,7 @@ out
 #infra ignore
 Box
 infra/**/.vagrant
-infra/**/tunalloc
-infra/**/configure-tun0.sh
+infra/**/partage/tunnel
 
 #vscode
 .vscode/*

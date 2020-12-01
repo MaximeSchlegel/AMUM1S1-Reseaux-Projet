@@ -1,59 +1,73 @@
-TARGET = iftun
-
 # Compiler
 CC       = gcc
-CFLAGS   = -Wall -I.
+CCFLAGS   = -Wall -g
 
 # Linker
 LINKER   = gcc
-LFLAGS   = -Wall -I. -lm
+LFLAGS   = -Wall -lm
 
-# Directories
+# Src directories
 SRCDIR = code/src
-TSTDIR = code/test
+MNSDIR = code/mains
+INCDIR = code/include
+
+# Out directory
 OBJDIR = out/obj
 BINDIR = out
+REMOTE = ./infra/partage/tunnel/
 
 # Files
-SOURCES  := $(wildcard $(SRCDIR)/$(TARGET).c)
-TESTS    := $(wildcard $(TSTDIR)/$(TARGET).c)
-INCLUDES := $(wildcard $(SRCDIR)/*.h)
+SOURCES  := $(wildcard $(SRCDIR)/*.c)
+INCLUDES := $(wildcard $(ICLDIR)/*.h)
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-rm       = rm -f
 
+
+###################################################################################################
+# Make all
 .PHONY: all
-all: folders $(BINDIR)/$(TARGET) 
+all: folders tunnel test_iftun test_extremite send
 
+###################################################################################################
 # Create the output folder for the obj and binary
 .PHONY: folders
-folders : $(BINDIR) $(OBJDIR)
-$(OBJDIR) :
-	mkdir -p $(OBJDIR)
-$(BINDIR) :
-	mkdir -p $(BINDIR)
+folders :
+	@mkdir -p $(BINDIR) $(OBJDIR) $(REMOTE)
 
-# Compile the source
-$(BINDIR)/$(TARGET): $(OBJECTS)
-	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
-	@echo "Linking complete!"
-
+###################################################################################################
+# Compile all the sources
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
 	@echo "Compiled "$<" successfully!"
 
-# Send the binary to the VM1
+###################################################################################################
+# Linked the main
+.PHONY: tunnel iftun_test extremite_test
+tunnel: folders $(OBJECTS)
+	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/tunnel $(OBJECTS) $(MNSDIR)/tunnel.c
+	@echo "tunnel created successfully!"
+
+test_iftun: folders $(OBJECTS)
+	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_iftun $(OBJECTS) $(MNSDIR)/test_iftun.c
+	@echo "test_iftun created successfully!"
+
+test_extremite: folders $(OBJECTS)
+	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite $(OBJECTS) $(MNSDIR)/test_extremite.c
+	@echo "test_extremite created successfully!"
+
+###################################################################################################
+# Send the binaries and scripts to the partage folder
 .PHONY: send
-send: $(BINDIR)/$(TARGET)
-	cp $(BINDIR)/$(TARGET) ./infra/VM1
+send:
+	@find ./out -maxdepth 1 -type f -executable -exec cp '{}' $(REMOTE) \;
+	@find ./scripts -maxdepth 1 -type f -executable -exec cp '{}' $(REMOTE) \;
+	@echo "Files sent to "$(REMOTE)
 
-# Remove oject file
-.PHONY: clean
+###################################################################################################
+# Remove all the generated files
+.PHONY: clean remove
 clean:
-	@$(rm) -r $(BINDIR)/$(OBJDIR)
+	@rm -rf $(BINDIR)/$(OBJDIR)
 	@echo "Cleanup complete!"
-
-# Remove all output
-.PHONY: remove
 remove: clean
-	@$(rm) -r $(BINDIR)
+	@rm -rf $(BINDIR) $(REMOTE)
 	@echo "Executable removed!"

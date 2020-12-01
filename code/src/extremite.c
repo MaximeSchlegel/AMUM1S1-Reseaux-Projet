@@ -38,8 +38,7 @@ void echo(int f, char *hote, char *port)
     do
     { /* Faire echo et logguer */
         lu = recv(f, tampon, MAXLIGNE, 0);
-        if (lu > 0)
-        {
+        if (lu > 0) {
             compteur++;
             tampon[lu] = '\0';
             /* log */
@@ -64,44 +63,39 @@ int ext_out(char* port,
             int outputFD,
             int verbose) {
     
-    int s, n;                                         /* descripteurs de socket */
+    int serverSocket, clientSocket;                   /* descripteurs de socket */
     int len, on;                                      /* utilitaires divers */
     struct addrinfo *resol;                           /* résolution */
     struct addrinfo indic = {AI_PASSIVE,              /* Toute interface */
                              PF_INET, SOCK_STREAM, 0, /* IP mode connecté */
                              0, NULL, NULL, NULL};
     struct sockaddr_in client; /* adresse de socket du client */
-    char *port;                /* Port pour le service */
     int err;                   /* code d'erreur */
 
     err = getaddrinfo(NULL, port, &indic, &resol);
-    if (err < 0)
-    {
+    if (err < 0) {
         fprintf(stderr, "Résolution: %s\n", gai_strerror(err));
         exit(2);
     }
     if (verbose) printf("Ecoute sur le port %s\n", port);
 
     /* Création de la socket, de type TCP / IP */
-    if ((s = socket(resol->ai_family, resol->ai_socktype, resol->ai_protocol)) < 0)
-    {
+    if ((serverSocket = socket(resol->ai_family, resol->ai_socktype, resol->ai_protocol)) < 0) {
         perror("allocation de socket");
         exit(3);
     }
-    if (verbose) printf("le n° de la socket est : %i\n", s);
+    if (verbose) printf("le n° de la socket est : %i\n", serverSocket);
 
     /* On rend le port réutilisable rapidement /!\ */
     on = 1;
-    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
-    {
+    if (setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
         perror("option socket");
         exit(4);
     }
     if (verbose) printf("Option(s) OK!\n");
 
     /* Association de la socket s à l'adresse obtenue par résolution */
-    if (bind(s, resol->ai_addr, sizeof(struct sockaddr_in)) < 0)
-    {
+    if (bind(serverSocket, resol->ai_addr, sizeof(struct sockaddr_in)) < 0) {
         perror("bind");
         exit(5);
     }
@@ -109,8 +103,7 @@ int ext_out(char* port,
     if (verbose) printf("bind!\n");
 
     /* la socket est prête à recevoir */
-    if (listen(s, SOMAXCONN) < 0)
-    {
+    if (listen(serverSocket, SOMAXCONN) < 0) {
         perror("listen");
         exit(6);
     }
@@ -120,7 +113,7 @@ int ext_out(char* port,
     {
         /* attendre et gérer indéfiniment les connexions entrantes */
         len = sizeof(struct sockaddr_in);
-        if ((n = accept(s, (struct sockaddr *)&client, (socklen_t *)&len)) < 0) {
+        if ((clientSocket = accept(serverSocket, (struct sockaddr *)&client, (socklen_t *)&len)) < 0) {
             perror("accept");
             exit(7);
         }
@@ -131,15 +124,17 @@ int ext_out(char* port,
         
         err = getnameinfo((struct sockaddr *)&client, len, hotec, NI_MAXHOST, portc, NI_MAXSERV, 0);
         if (err < 0) {
-            fprintf(stderr, "résolution client (%i): %s\n", n, gai_strerror(err));
+            fprintf(stderr, "résolution client (%i): %s\n", clientSocket, gai_strerror(err));
         } else {
-            if (verbose) printf("accept! (%i) ip=%s port=%s\n", n, hotec, portc);
+            if (verbose) printf("accept! (%i) ip=%s port=%s\n", clientSocket, hotec, portc);
         }
 
         /* traitement */
-        echo(n, hotec, portc);
+        if (continuousTransfert(clientSocket, outputFD) < 0) {
+            perror("error, client");
+        }
     }
+
+    close(serverSocket);
     return EXIT_SUCCESS;
 }
-
-
