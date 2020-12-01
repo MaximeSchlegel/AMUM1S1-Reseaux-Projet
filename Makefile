@@ -18,7 +18,6 @@ REMOTE = ./infra/partage/tunnel/
 
 # Files
 SOURCES  := $(wildcard $(SRCDIR)/*.c)
-INCLUDES := $(wildcard $(ICLDIR)/*.h)
 OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 
@@ -51,7 +50,7 @@ test_iftun: folders $(OBJECTS)
 	@echo "test_iftun created successfully!"
 
 test_extremite: folders $(OBJECTS)
-	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite $(OBJECTS) $(MNSDIR)/test_extremite.c
+	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite_out $(OBJECTS) $(MNSDIR)/test_extremite_out.c
 	@echo "test_extremite created successfully!"
 
 ###################################################################################################
