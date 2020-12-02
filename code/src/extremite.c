@@ -143,7 +143,7 @@ int ext_in(char* tunName,
         exit(4);
     }
     freeaddrinfo(resol); /* /!\ Libération mémoire */
-
+    
     iftun(tunName, configScript, socketClient);
 
     // /* Session */

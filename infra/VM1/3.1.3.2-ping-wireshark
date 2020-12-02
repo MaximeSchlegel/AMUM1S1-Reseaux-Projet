@@ -1,0 +1,24 @@
+No.     Time           Source                Destination           Protocol Length Info
+      1 0.000000000    fc00:1234:ffff::1     fc00:1234:ffff::10    ICMPv6   120    Echo (ping) request id=0x0a9a, seq=1, hop limit=64 (no response found!)
+
+Frame 1: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:ffff::1 (fc00:1234:ffff::1), Dst: fc00:1234:ffff::10 (fc00:1234:ffff::10)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.000026000    172.16.2.131          172.16.2.162          NTP      176    reserved, reserved
+
+Frame 2: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.162 (172.16.2.162)
+Transmission Control Protocol, Src Port: 43508 (43508), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      3 0.000853000    172.16.2.162          172.16.2.131          TCP      68     123→43508 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=811537 TSecr=815827
+
+Frame 3: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.162 (172.16.2.162), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 43508 (43508), Seq: 1, Ack: 109, Len: 0
