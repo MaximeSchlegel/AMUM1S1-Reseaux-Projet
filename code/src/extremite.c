@@ -228,7 +228,7 @@ int ext_in(char* tunName,
     return EXIT_SUCCESS;
 }
 
-int  ext_bid(char* tunName,char *configScript,char* serveurIP,char* serveurPort,int outputFD,char* port,int verbose){
+int  ext_bid(char* tunName,char *configScript,char* serveurIP,char* serveurPort, int outputFD, char* port,int verbose){
     int f = fork();
     
     if(f<0){
