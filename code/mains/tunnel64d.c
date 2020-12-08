@@ -136,15 +136,17 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error during tun allocation");
         exit(2);
     }
-    char cmd[1000];
-    sprintf(cmd, "sh ./configure-tun.sh %s %s", tunName, config->localIP);
+
+    int cmd_size = 1000; // should be plenty space to create the command
+    char *cmd = malloc(cmd_size * sizeof(char));
+    snprintf(cmd, cmd_size, "sh ./configure-tun.sh %s %s", tunName, config->localIP);    
+    // system("chmod +x configure-tun.sh");
     system(cmd);
+    free(cmd);
+    
     if (argc == 3) printf("Tun Interface ('%s') configured successfully!\n", tunName);
 
     ext_bid(config->localPort, tunfd,
             tunfd, config->remoteIP, config->remotePort,
             argc==3);
-
-
-
 }

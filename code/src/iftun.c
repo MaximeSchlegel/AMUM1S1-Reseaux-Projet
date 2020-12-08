@@ -128,7 +128,7 @@ int iftun(char* dev, char* configScript, int toFD, int verbose) {
     /* configure it either with a script or manually */
     if (configScript) {
         int cmd_size = 1000; // should be plenty space to create the command
-        char *cmd = malloc(cmd_size);
+        char *cmd = malloc(cmd_size * sizeof(char));
         snprintf(cmd, cmd_size, "%s %s", configScript, dev);
         system(cmd);
         free(cmd);

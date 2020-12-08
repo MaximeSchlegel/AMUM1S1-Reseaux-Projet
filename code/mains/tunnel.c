@@ -8,6 +8,11 @@
 #include <sys/stat.h>
 
 int main(int argc, char **argv) {
+    if (argc < 2 || 4 < argc) {
+        fprintf(stderr, "Usage: %s [-c /configuration script path/] [-o /output file path/] /tun name/\n", argv[0]);
+        return -1;
+    }
+
     char* configScriptPath = NULL;
     char* tunName = NULL;
     char* output = NULL;
