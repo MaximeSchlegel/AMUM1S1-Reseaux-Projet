@@ -110,23 +110,58 @@ Config* parseConfigFile(char* fileName) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 2 || 3 < argc) {
-        fprintf(stderr, "Usage: %s [-v] /config file/\n", argv[0]);
+    if (argc < 2 || 5 < argc) {
+        fprintf(stderr, "Usage: %s [-v] [-rad /vmNb/] /config file/\n", argv[0]);
         exit(1);
     }
 
-    char* configFile = argv[1];
-    if (argc == 3) configFile = argv[2];
+    int verbose = 0;
+    int radvd = 0;
+    char* vmNb = NULL;
+    char* configFile = NULL;
+
+    for (int i=1; i < argc; i++) {
+        if (argv[i][0] == '-') {
+            if (strlen(argv[i]) == 2 && argv[i][1] == 'v') {
+                verbose = 1;
+            } else {
+                if (strlen(argv[i]) == 4 && argv[i][1] == 'r' && argc > i + 1) {
+                    radvd = 1;
+                    vmNb = argv[i+1];
+                    i++;
+                } else {
+                    fprintf(stderr, "Usage: %s [-v] [-rad /vmNb/] /config file/\n", argv[0]);
+                    exit(2);
+                }
+            }
+        } else {
+            if (!configFile) {
+                configFile = argv[i];
+            } else {
+                fprintf(stderr, "Usage: %s [-v] [-rad /vmNb/] /config file/\n", argv[0]);
+                exit(3);
+            }
+        }
+    }
+
+    if (!configFile) {
+        fprintf(stderr, "Usage: %s [-v] [-rad /vm nb/] /config file/\n", argv[0]);
+        exit(4);
+    }
     Config* config = parseConfigFile(configFile);
     
-    if (argc == 3) {
+    if (verbose) {
+        printf("Option:\n");
+        printf("\t- config file  : %s \n", configFile);
+        printf("\t- radvd advert : %i (%s) \n", radvd, vmNb);
+        printf("\t- verbose      : %i \n", verbose);
         printf("Configuration:\n");
-        printf("\t- Tun Name    : %s \n", config->tunName);
-        printf("\t- Local IP    : %s \n", config->localIP);
-        printf("\t- Local Port  : %s \n", config->localPort);
-        printf("\t- Remote IP   : %s \n", config->remoteIP);
-        printf("\t- Remote PORT : %s \n", config->remotePort);
-        printf("\t- Options     : %s \n", config->options);
+        printf("\t- Tun Name     : %s \n", config->tunName);
+        printf("\t- Local IP     : %s \n", config->localIP);
+        printf("\t- Local Port   : %s \n", config->localPort);
+        printf("\t- Remote IP    : %s \n", config->remoteIP);
+        printf("\t- Remote PORT  : %s \n", config->remotePort);
+        printf("\t- Options      : %s \n", config->options);
     }
 
     char* tunName = malloc(IFNAMSIZ);
@@ -144,10 +179,20 @@ int main(int argc, char **argv) {
     // system("chmod +x configure-tun.sh");
     system(cmd);
     free(cmd);
+    if (verbose) printf("Tun Interface ('%s') configured successfully!\n", tunName);
+
+    if (radvd) {
+        int cmd_size = 1000; // should be plenty space to create the command
+        char *cmd = malloc(cmd_size * sizeof(char));
+        snprintf(cmd, cmd_size, "sh ./configure-radcd.sh ./radvd-vm%s.config", vmNb);
+        // system("chmod +x configure-tun.sh");
+        system(cmd);
+        free(cmd);
+        if (verbose) printf("Radvd configured successfully! (with ./radvd-vm%s.config)\n", vmNb);
+    }
     
-    if (argc == 3) printf("Tun Interface ('%s') configured successfully!\n", tunName);
 
     ext_bid(config->localPort, tunfd,
             tunfd, config->remoteIP, config->remotePort,
-            argc==3);
+            verbose);
 }
