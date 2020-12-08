@@ -77,10 +77,16 @@ int continuousReadWrite(int fromFD, int toFD, int verbose) {
     }
 
     char *buffer = (char *) calloc(BUFFER_SIZE, sizeof(char));
-    int sizeRead, writeSuccess;
+    if (buffer == NULL) {
+        fprintf(stderr,
+                "Can't allocate the buffer for continuousReadWrite\n");
+        free(buffer);
+        return -1;
+    }
     
     // Read from in and output on out
     if (verbose) printf("Start reading and writing\n");
+    int sizeRead, writeSuccess;
     while(1) {
         sizeRead = read(fromFD, buffer, BUFFER_SIZE);
         if (sizeRead < 0) {
@@ -99,20 +105,21 @@ int continuousReadWrite(int fromFD, int toFD, int verbose) {
         }
         if (writeSuccess =! sizeRead) {
             fprintf(stderr,
-                    "Error can't write the whole message to the 'to' File descriptor (%d/%d)\n",
+                    "Error can't write the whole message to the 'to' File descriptor (%i/%i)\n",
                     writeSuccess, sizeRead);
             free(buffer);
             return -1;
         }
     }
-    return 0;
+    free(buffer);
+    return EXIT_SUCCESS;
 }
 
 int iftun(char* dev, char* configScript, int toFD, int verbose) {
     /* create the tun interface */
     int tunfd;
-    tunfd = tun_alloc(dev, IFF_TUN);
-    if(tunfd < 0){
+    tunfd = tun_alloc(dev, IFF_TUN + IFF_NO_PI);
+    if(tunfd < 0) {
         perror("Error during tun allocation");
         return -1;
     }

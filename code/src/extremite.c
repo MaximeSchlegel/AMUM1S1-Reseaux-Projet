@@ -21,39 +21,63 @@
 #define MAXLIGNE 80
 #define CIAO "Au revoir ...\n"
 
-int transfertSocketToTun (int socket, int tun) {
+int continuousRecvWrite (int fromFD, int toFD, int verbose) {
     // Size of the buffer for the read, should at least be the MTU (1500) 
     int BUFFER_SIZE = 1500 ;
 
-    // Check the file descriptors
-    if (socket < 0) {
-        perror("Invalid 'socket' File descriptor\n");
-        return -1;
+    // Check the file descriptor
+    if (fromFD < 0) {
+        fprintf(stderr,
+                "Invalid 'from' File descriptor\n");
+        return fromFD;
     }
-    if (tun < 0) {
-        perror("Invalid 'tun' File descriptor\n");
-        return -2;
+    if (toFD < 0) {
+        fprintf(stderr,
+                "Invalid 'to' File descriptor\n");
+        return toFD;
     }
 
     // create the buffer
     char *buffer = (char *) calloc(BUFFER_SIZE, sizeof(char));
-    int sizeRecv, writeSuccess;
+    if (buffer == NULL) {
+        fprintf(stderr,
+                "Can't allocate the buffer for continuousRecvWrite\n");
+        free(buffer);
+        return -1;
+    }
     
     // Read from the socket and write to the tun
-    sizeRecv = recv(socket, buffer, BUFFER_SIZE, 0);
-    if (write(tun, buffer, sizeRecv) < 0) {
-        perror("Unable to write\n");
-        return -3;
+    if (verbose) printf("Start recovering and writing\n");
+    int sizeRecv, writeSuccess;
+    while(1) {
+        sizeRecv = recv(fromFD, buffer, BUFFER_SIZE, 0);
+        if (sizeRecv < 0) {
+            fprintf(stderr,
+                    "Error while reading from the 'from' File descriptor\n");
+            free(buffer);
+            return sizeRecv;
+        }
+        writeSuccess = write(toFD, buffer, sizeRecv);
+        if (writeSuccess < 0) {
+            fprintf(stderr,
+                    "Error while reading from the 'to' File descriptor\n");
+            free(buffer);
+            return writeSuccess;
+        }
+        if (writeSuccess =! sizeRecv) {
+            fprintf(stderr,
+                    "Error can't write the whole message to the 'to' File descriptor (%d/%d)\n",
+                    writeSuccess, sizeRecv);
+            free(buffer);
+            return -1;
+        }
     }
     
     free(buffer);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
-int ext_out(char* port,
-            int outputFD,
-            int verbose) {
-    
+int ext_out(char* localPort, int outputFD, int verbose) {
     /* Modified from:
      *   echo / serveur simpliste
      *   Master Informatique 2012 -- Université Aix-Marseille  
@@ -69,60 +93,58 @@ int ext_out(char* port,
     struct sockaddr_in client;                          /* adresse de socket du client */
     int err;                                            /* code d'erreur */
 
-    err = getaddrinfo(NULL, port, &indic, &resol);
-    if (err < 0) {
-        fprintf(stderr, "Résolution: %s\n", gai_strerror(err));
-        exit(2);
+    if ((err = getaddrinfo(NULL, localPort, &indic, &resol))< 0) {
+        fprintf(stderr,
+                "Resolution Error: %s\n", gai_strerror(err));
+        return err;
     }
-    if (verbose) printf("Ecoute sur le port %s\n", port);
+    if (verbose) printf("Listen on Port: %s\n", localPort);
 
     /* Création de la socket, de type TCP / IP */
     if ((serverSocket = socket(resol->ai_family, resol->ai_socktype, resol->ai_protocol)) < 0) {
-        perror("allocation de socket");
-        exit(3);
+        fprintf(stderr,
+                "Socket Allocation Error\n");
+        return serverSocket;
     }
-    if (verbose) printf("le n° de la socket est : %i\n", serverSocket);
+    if (verbose) printf("Socket allocated successfully! (%i)\n", serverSocket);
 
     /* On rend le port réutilisable rapidement /!\ */
     on = 1;
-    if (setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
-        perror("option socket");
-        exit(4);
+    if ((err = setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on))) < 0) {
+        fprintf(stderr,
+                "Socket Option Error\n");
+        return err;
     }
-    if (verbose) printf("Option(s) OK!\n");
+    if (verbose) printf("Option(s) set successfully!\n");
 
     /* Association de la socket s à l'adresse obtenue par résolution */
-    if (bind(serverSocket, resol->ai_addr, sizeof(struct sockaddr_in)) < 0) {
-        perror("bind");
-        exit(5);
+    if ((err = bind(serverSocket, resol->ai_addr, sizeof(struct sockaddr_in))) < 0) {
+        fprintf(stderr,
+                "Socket Binding Error\n");
+        return err;
     }
     freeaddrinfo(resol); /* /!\ Libération mémoire */
-    if (verbose) printf("bind!\n");
+    if (verbose) printf("Socket bound successfully!\n");
 
     /* la socket est prête à recevoir */
-    if (listen(serverSocket, SOMAXCONN) < 0) {
-        perror("listen");
-        exit(6);
+    if ((err = listen(serverSocket, SOMAXCONN)) < 0) {
+        fprintf(stderr,
+                "Error while listening\n");
+        return err;
     }
-    if (verbose) printf("listen!\n");
+    if (verbose) printf("Listen successfully!\n");
 
-    // crée l'interface tun0 sur le serveur
-    char* tun_name = malloc(IFNAMSIZ);
-    tun_name[0]='\0';
-    int tunfd = tun_alloc(tun_name, IFF_TUN);
-    if(tunfd < 0){
-        perror("Error during interface allocation");
-        exit(-1);
-    };
-
-    while (1)
-    {
+    /* Start accepting conection */
+    while (1) {
         /* attendre et gérer indéfiniment les connexions entrantes */
+        if (verbose) printf("Waiting for incoming connections...\n");
+
         len = sizeof(struct sockaddr_in);
-        if ((clientSocket = accept(serverSocket, (struct sockaddr *)&client, (socklen_t *)&len)) < 0) {
-            perror("accept");
-            exit(7);
-        }
+        if ((clientSocket = accept(serverSocket, (struct sockaddr *)&client, (socklen_t *)&len)) <0) {
+            fprintf(stderr,
+                    "Accepting Connection Error\n");
+            return clientSocket;
+        } else if (verbose) printf(" New connection accepted\n");
         
         /* Nom réseau du client */
         char hotec[NI_MAXHOST];
@@ -130,19 +152,18 @@ int ext_out(char* port,
         
         err = getnameinfo((struct sockaddr *)&client, len, hotec, NI_MAXHOST, portc, NI_MAXSERV, 0);
         if (err < 0) {
-            fprintf(stderr, "résolution client (%i): %s\n", clientSocket, gai_strerror(err));
-        } else {
-            if (verbose) printf("accept! (%i) ip=%s port=%s\n", clientSocket, hotec, portc);
-        }
+            if (verbose) fprintf(stderr,
+                                 "Client Resolution Error (socket: %i): %s\n",
+                                 clientSocket, gai_strerror(err));
+        } else if (verbose)
+            printf("Client accepted successfully!\n\t(socket:%i) ip=%s port=%s\n",
+                   clientSocket, hotec, portc);
         
         /* traitement */
-        if (transfertSocketToTun(clientSocket, outputFD) < 0) {
-            perror("error, client");
-        }
-        // if (transfertSocketToTun(clientSocket, tunfd) < 0) {
-        //     perror("error, client");
-        // }
-
+        continuousRecvWrite(clientSocket, outputFD, verbose);
+        if (verbose) printf("Client exited!\n\t(socket:%i) ip=%s port=%s\n",
+                            clientSocket, hotec, portc);
+        close(clientSocket);
     }
 
     close(serverSocket);
@@ -150,12 +171,7 @@ int ext_out(char* port,
 }
 
 
-int ext_in(char* tunName,
-           char *configScript,
-           char* serveurIP,
-           char* serveurPort,
-           int verbose) {
-    
+int ext_in(int inputFD, char* remoteIP, char* remotePort, int verbose) {
     /* Modified from:
      *   echo / client simple
      *   Master Informatique 2012 -- Université Aix-Marseille  
@@ -164,34 +180,41 @@ int ext_in(char* tunName,
     
     char ip[NI_MAXHOST];    /* adresse IPv4 en notation pointée */
     struct addrinfo *resol; /* struct pour la résolution de nom */
-    int socketClient;       /* descripteur de socket */
+    int clientSocket;       /* descripteur de socket */
+    int err;
 
     /* Résolution de l'hôte */
-    if ( getaddrinfo(serveurIP, serveurPort, NULL, &resol) < 0 ){
-        perror("Can't resolved serveur adresse");
-        exit(1);
+    if((err = getaddrinfo(remoteIP, remotePort, NULL, &resol)) <0) {
+        fprintf(stderr,
+                "Serveur Resolution Error: %s\n", gai_strerror(err));
+        return err;
     }
+    if (verbose) printf("Remote serveur resolced successfully\n");
+
 
     /* On extrait l'addresse IP */
     sprintf(ip, "%s", inet_ntoa(((struct sockaddr_in*)resol->ai_addr)->sin_addr));
 
     /* Création de la socket, de type TCP / IP */
     /* On ne considère que la première adresse renvoyée par getaddrinfo */
-    if ((socketClient=socket(resol->ai_family,resol->ai_socktype, resol->ai_protocol))<0) {
-        perror("allocation de socket");
-        exit(3);
+    if ((clientSocket=socket(resol->ai_family,resol->ai_socktype, resol->ai_protocol)) <0) {
+        fprintf(stderr,
+                "Socket Allocation Error\n");
+        return clientSocket;
     }
-    if (verbose) printf("le n° de la socket est : %i\n",socketClient);
+    if (verbose) printf("Socket allocated successfully! (%i)\n", clientSocket);
 
     /* Connexion */
-    if (verbose) printf("Essai de connexion à %s (%s) sur le port %s\n\n", serveurIP, ip, serveurPort);
-    if (connect(socketClient, resol->ai_addr,sizeof(struct sockaddr_in))<0) {
-        perror("connexion");
-        exit(4);
+    if (verbose) printf("Try to connect to %s (%s) on port %s\n", remoteIP, ip, remotePort);
+    if ((err = connect(clientSocket, resol->ai_addr,sizeof(struct sockaddr_in))) <0) {
+        fprintf(stderr,
+                "Connexion Error\n");
+        return err;
     }
     freeaddrinfo(resol); /* /!\ Libération mémoire */
+    if (verbose) printf("Connect to %s (%s) on port %s successfully\n", remoteIP, ip, remotePort);
     
-    iftun(tunName, configScript, socketClient, verbose);
+    continuousReadWrite(inputFD, clientSocket, verbose);
 
     // /* Session */
     // char tampon[MAXLIGNE + 3]; /* tampons pour les communications */
@@ -224,25 +247,36 @@ int ext_in(char* tunName,
     //     }else{   /* envoi des données */
     //         send(s,tampon,strlen(tampon),0);
     //     }
-    // } 
+    // }
+
     /* Destruction de la socket */
-    close(socketClient);
+    close(clientSocket);
 
     if (verbose) printf("Fin de la session.\n");
     return EXIT_SUCCESS;
 }
 
-int  ext_bid(char* tunName,char *configScript,char* serveurIP,char* serveurPort, int outputFD, char* port,int verbose){
-    int f = fork();
+int  ext_bid(char* localPort, int outputFD,
+             int inputFD, char* remoteIP, char* remotePort,
+             int verbose) {
     
-    if(f<0){
-        return -1;
+    int pid = fork();
+    if(pid < 0) {
+        fprintf(stderr,
+                "Error while forking process\n");
+        return pid;
     }
-    else if(f==0){
-        ext_in(tunName, configScript, serveurIP, serveurPort, verbose);
+    
+    if(pid == 0){
+        /* main process, launch the "serveur" */
+        if (verbose) printf("Fork Successful! Launching ext_out\n");
+        ext_out(localPort, outputFD, verbose);
     }
     else{
-        ext_out(port, outputFD, verbose);
+        /* Secondary process, launch the "client" */
+        if (verbose) printf("Fork Successful! Launching ext_out\n");
+        while( ext_in(inputFD, remoteIP, remotePort, verbose) != EXIT_SUCCESS);
     }
-    return 1;
+
+    return EXIT_SUCCESS;
 }

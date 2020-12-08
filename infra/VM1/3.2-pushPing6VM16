@@ -1,0 +1,88 @@
+No.     Time           Source                Destination           Protocol Length Info
+      1 0.000000000    172.16.2.131          172.16.2.131          TCP      76     37949→123 [SYN] Seq=0 Win=43690 Len=0 MSS=65495 SACK_PERM=1 TSval=3174554 TSecr=0 WS=128
+
+Frame 1: 76 bytes on wire (608 bits), 76 bytes captured (608 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 37949 (37949), Dst Port: 123 (123), Seq: 0, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.000010000    172.16.2.131          172.16.2.131          TCP      76     123→37949 [SYN, ACK] Seq=0 Ack=1 Win=43690 Len=0 MSS=65495 SACK_PERM=1 TSval=3174554 TSecr=3174554 WS=128
+
+Frame 2: 76 bytes on wire (608 bits), 76 bytes captured (608 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 37949 (37949), Seq: 0, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      3 0.000018000    172.16.2.131          172.16.2.131          TCP      68     37949→123 [ACK] Seq=1 Ack=1 Win=43776 Len=0 TSval=3174554 TSecr=3174554
+
+Frame 3: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 37949 (37949), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      4 0.000097000    10.0.2.15             10.0.2.3              DNS      87     Standard query 0x12a4  PTR 131.2.16.172.in-addr.arpa
+
+Frame 4: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.0.2.15 (10.0.2.15), Dst: 10.0.2.3 (10.0.2.3)
+User Datagram Protocol, Src Port: 55040 (55040), Dst Port: 53 (53)
+Domain Name System (query)
+
+No.     Time           Source                Destination           Protocol Length Info
+      5 0.000682000    172.16.2.131          172.16.2.131          NTP      188    reserved, reserved
+
+Frame 5: 188 bytes on wire (1504 bits), 188 bytes captured (1504 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 37949 (37949), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 120
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      6 0.000687000    172.16.2.131          172.16.2.131          TCP      68     123→37949 [ACK] Seq=1 Ack=121 Win=43776 Len=0 TSval=3174554 TSecr=3174554
+
+Frame 6: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 37949 (37949), Seq: 1, Ack: 121, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      7 0.014022000    10.0.2.3              10.0.2.15             DNS      87     Standard query response 0x12a4 No such name
+
+Frame 7: 87 bytes on wire (696 bits), 87 bytes captured (696 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.0.2.3 (10.0.2.3), Dst: 10.0.2.15 (10.0.2.15)
+User Datagram Protocol, Src Port: 53 (53), Dst Port: 55040 (55040)
+Domain Name System (response)
+
+No.     Time           Source                Destination           Protocol Length Info
+      8 0.014347000    3a40fc00.123400030000 e7e70000.86dd60000000 IPX      132    Unknown (0x0040)
+
+Frame 8: 132 bytes on wire (1056 bits), 132 bytes captured (1056 bits) on interface 0
+Linux cooked capture
+Internetwork Packet eXchange
+Data (86 bytes)
+
+0000  00 00 00 00 00 01 fc 00 12 34 00 03 00 00 00 00   .........4......
+0010  00 00 00 00 00 16 80 00 4e ef 09 0c 00 01 56 7f   ........N.....V.
+0020  cf 5f 00 00 00 00 1b 50 0b 00 00 00 00 00 10 11   ._.....P........
+0030  12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f 20 21   .............. !
+0040  22 23 24 25 26 27 28 29 2a 2b 2c 2d 2e 2f 30 31   "#$%&'()*+,-./01
+0050  32 33 34 35 36 37                                 234567
+
+No.     Time           Source                Destination           Protocol Length Info
+      9 5.014365000    CadmusCo_f8:33:b7                           ARP      44     Who has 10.0.2.3?  Tell 10.0.2.15
+
+Frame 9: 44 bytes on wire (352 bits), 44 bytes captured (352 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (request)
+
+No.     Time           Source                Destination           Protocol Length Info
+     10 5.014681000    RealtekU_12:35:03                           ARP      62     10.0.2.3 is at 52:54:00:12:35:03
+
+Frame 10: 62 bytes on wire (496 bits), 62 bytes captured (496 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (reply)
+VSS-Monitoring ethernet trailer, Source Port: 0

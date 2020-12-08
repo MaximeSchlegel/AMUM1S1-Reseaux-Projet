@@ -51,10 +51,9 @@ test_iftun: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/test_iftun.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_iftun $(OBJECTS) $(MNSDIR)/test_iftun.c
 	@echo "Linked test_iftun successfully!"
 
-test_extremite: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/test_extremite_in.c $(MNSDIR)/test_extremite_out.c $(OBJECTS) $(MNSDIR)/test_extremite_bid.c
+test_extremite: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/test_extremite_in.c $(MNSDIR)/test_extremite_out.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite_in  $(OBJECTS) $(MNSDIR)/test_extremite_in.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite_out $(OBJECTS) $(MNSDIR)/test_extremite_out.c
-	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_extremite_bid $(OBJECTS) $(MNSDIR)/test_extremite_bid.c
 	@echo "Linked test_extremite successfully!"
 
 ###################################################################################################

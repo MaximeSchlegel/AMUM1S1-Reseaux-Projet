@@ -1,3 +1,4 @@
-int ext_out(char* port, int outputFD, int verbose);
-int ext_in(char* tunName, char *configScript, char* serveurIP, char* serveurPort, int verbose);
-int ext_bid(char* tunName,char *configScript,char* serveurIP,char* serveurPort, int outputFD, char* port,int verbose);
+int continuousRecvWrite (int fromFD, int toFD, int verbose);
+int ext_out(char* localPort, int outputFD, int verbose);
+int ext_in(int inputFD, char* remoteIP, char* remotePort, int verbose);
+int  ext_bid(char* localPort, int outputFD, int inputFD, char* remoteIP, char* remotePort, int verbose);

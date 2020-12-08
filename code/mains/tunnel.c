@@ -30,14 +30,14 @@ int main(int argc, char **argv) {
             }
         } else {
             fprintf(stderr, "Usage: %s [-c /configuration script path/] [-o /output file path/] /tun name/\n", argv[0]);
-            return -2;
+            return -1;
         }
     }
     tunName = argv[opt];
 
     if (output) {
         int outputFd = open(argv[3], O_WRONLY | O_CREAT);
-        return iftun( tunName, configScriptPath, outputFd, 1);
+        return iftun( tunName, configScriptPath, outputFd);
     }
-    return iftun( tunName, configScriptPath, 1, 1);
+    return iftun( tunName, configScriptPath, 1);
 }
