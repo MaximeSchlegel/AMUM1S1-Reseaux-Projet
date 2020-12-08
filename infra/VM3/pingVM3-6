@@ -1,0 +1,31 @@
+No.     Time           Source                Destination           Protocol Length Info
+      3 11.705094000   fc00:1234:4::3        fc00:1234:4::36       ICMPv6   120    Echo (ping) request id=0x070f, seq=1, hop limit=64 (reply in 4)
+
+Frame 3: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+    Packet type: Sent by us (4)
+    Link-layer address type: 1
+    Link-layer address length: 6
+    Source: CadmusCo_61:96:62 (08:00:27:61:96:62)
+    Protocol: IPv6 (0x86dd)
+Internet Protocol Version 6, Src: fc00:1234:4::3 (fc00:1234:4::3), Dst: fc00:1234:4::36 (fc00:1234:4::36)
+    0110 .... = Version: 6
+    .... 0000 0000 .... .... .... .... .... = Traffic class: 0x00000000
+    .... .... .... 0000 0000 0000 0000 0000 = Flowlabel: 0x00000000
+    Payload length: 64
+    Next header: ICMPv6 (58)
+    Hop limit: 64
+    Source: fc00:1234:4::3 (fc00:1234:4::3)
+    Destination: fc00:1234:4::36 (fc00:1234:4::36)
+    [Source GeoIP: Unknown]
+    [Destination GeoIP: Unknown]
+Internet Control Message Protocol v6
+    Type: Echo (ping) request (128)
+    Code: 0
+    Checksum: 0xc28e [correct]
+    Identifier: 0x070f
+    Sequence: 1
+    [Response In: 4]
+    Data (56 bytes)
+
+4556ce5f00000000c3b2030000000000101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f3031323334353637
