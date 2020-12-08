@@ -16,7 +16,7 @@ typedef struct Config {
     char* tunName;    // Name of the tun interface
     char* localIP;    // Adress of the tun interface
     char* localPort;  // Local port for sending
-    char* options;    // None atm
+    char* options;    // LAN accessible by the tunnel 
     char* remoteIP;   // IP of the other end of the tunnel
     char* remotePort; // Port of the other end of the tunnel
 } Config;
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
     char* configFile = argv[1];
     if (argc == 3) configFile = argv[2];
     Config* config = parseConfigFile(configFile);
-
+    
     if (argc == 3) {
         printf("Configuration:\n");
         printf("\t- Tun Name    : %s \n", config->tunName);
@@ -139,7 +139,8 @@ int main(int argc, char **argv) {
 
     int cmd_size = 1000; // should be plenty space to create the command
     char *cmd = malloc(cmd_size * sizeof(char));
-    snprintf(cmd, cmd_size, "sh ./configure-tun.sh %s %s", tunName, config->localIP);    
+    snprintf(cmd, cmd_size, "sh ./configure-tun.sh %s %s %s",
+             tunName, config->localIP, config->options);    
     // system("chmod +x configure-tun.sh");
     system(cmd);
     free(cmd);
