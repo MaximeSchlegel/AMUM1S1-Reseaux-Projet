@@ -227,3 +227,18 @@ int ext_in(char* tunName,
     if (verbose) printf("Fin de la session.\n");
     return EXIT_SUCCESS;
 }
+
+int  ext_bid(char* tunName,char *configScript,char* serveurIP,char* serveurPort,int outputFD,char* port,int verbose){
+    int f = fork();
+    
+    if(f<0){
+        return -1;
+    }
+    else if(f==0){
+        ext_in(tunName, configScript, serveurIP, serveurPort, verbose);
+    }
+    else{
+        ext_out(port, outputFD, verbose);
+    }
+    return 1;
+}
