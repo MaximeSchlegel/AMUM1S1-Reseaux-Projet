@@ -25,7 +25,7 @@ OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 ###################################################################################################
 # Make all
 .PHONY: all
-all: folders tunnel test_iftun test_extremite send clean
+all: folders tunnel tunnel64d test_iftun test_extremite send clean
 
 ###################################################################################################
 # Create the output folder for the obj and binary
@@ -42,10 +42,14 @@ $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCLUDES)
 
 ###################################################################################################
 # Linked the main
-.PHONY: tunnel test_iftun test_extremite
+.PHONY: tunnel tunnel64d test_iftun test_extremite
 tunnel: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/tunnel.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/tunnel $(OBJECTS) $(MNSDIR)/tunnel.c
 	@echo "Linked tunnel successfully!"
+
+tunnel64d: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/tunnel64d.c
+	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/tunnel64d $(OBJECTS) $(MNSDIR)/tunnel64d.c
+	@echo "Linked tunnel64d successfully!"
 
 test_iftun: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/test_iftun.c
 	@$(CC) $(CFLAGS) -I $(INCDIR) -o $(BINDIR)/test_iftun $(OBJECTS) $(MNSDIR)/test_iftun.c

@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    char* script = "./configure-tun.sh";
+    char* script = "./configure-tun-ipset.sh";
     
     if (argc == 2) {
         return iftun(argv[1], script, 1, 0);

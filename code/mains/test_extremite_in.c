@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error during tun allocation");
         exit(2);
     }
-    system("./configure-tun.sh tun0");
+    system("./configure-tun-ipset.sh tun0");
     if (argc == 4) printf("Tun Interface ('tun0') configured successfully! (with: './cofigure-tun.sh')\n");
 
     /* Launch the input */

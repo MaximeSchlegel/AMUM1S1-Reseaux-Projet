@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
     if (output) {
         int outputFd = open(argv[3], O_WRONLY | O_CREAT);
-        return iftun( tunName, configScriptPath, outputFd);
+        return iftun(tunName, configScriptPath, outputFd, 1);
     }
-    return iftun( tunName, configScriptPath, 1);
+    return iftun( tunName, configScriptPath, 1, 1);
 }
