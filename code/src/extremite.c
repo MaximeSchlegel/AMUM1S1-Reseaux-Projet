@@ -189,7 +189,7 @@ int ext_in(int inputFD, char* remoteIP, char* remotePort, int verbose) {
                 "Serveur Resolution Error: %s\n", gai_strerror(err));
         return err;
     }
-    if (verbose) printf("Remote serveur resolced successfully\n");
+    if (verbose) printf("Remote serveur resolved successfully\n");
 
 
     /* On extrait l'addresse IP */
@@ -267,15 +267,15 @@ int  ext_bid(char* localPort, int outputFD,
         return pid;
     }
     
-    if(pid == 0){
+    if(pid) {
         /* main process, launch the "serveur" */
         if (verbose) printf("Fork Successful! Launching ext_out\n");
         ext_out(localPort, outputFD, verbose);
     }
     else{
         /* Secondary process, launch the "client" */
-        if (verbose) printf("Fork Successful! Launching ext_out\n");
-        while( ext_in(inputFD, remoteIP, remotePort, verbose) != EXIT_SUCCESS);
+        if (verbose) printf("Fork Successful! Launching ext_in\n");
+        while( ext_in(inputFD, remoteIP, remotePort, verbose) != EXIT_SUCCESS) sleep(30);
     }
 
     return EXIT_SUCCESS;

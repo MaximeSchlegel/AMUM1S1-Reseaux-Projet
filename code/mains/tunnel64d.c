@@ -25,7 +25,7 @@ Config* parseConfigFile(char* fileName) {
     Config* config = (Config*) malloc(sizeof(Config));
 
     /* Open the config file */
-    FILE* file = fopen(fileName, 'r');
+    FILE* file = fopen(fileName, "r");
     if (file == NULL) {
         perror("Can't open the config file");
         exit(1);
@@ -35,25 +35,39 @@ Config* parseConfigFile(char* fileName) {
     size_t lineSize = 0;
     ssize_t read;
 
-    char key[1000], value[1000];
-    int keySize, valueSize;
+    int keySize=0, valueSize=0, skipped = 0;
 
     while ((read = getline(&line, &lineSize, file)) != -1) {
+        char* key = malloc(read * sizeof(char));
+        char* value = malloc(read * sizeof(char));
+        char* target = key;
+
         // Ignore comments
-        if (line[0] == '#') continue;
-        
+        if (line[0] == '#') {
+            free(key);
+            free(value);
+            continue;
+        }
+
         // parse the key value on the line
-        char* target = (char*) *key;
-        for (int i = 0; i < lineSize; i++) {
-            if (line[i] == '=' && !keySize) {
+        for (int i = 0; i < read && line[i]!='\n' && line[i]!='\r'; i++) {
+            if (line[i] == ' ') {
+                // ignore spaces
+                skipped++;
+                continue;
+            }
+            
+            if (line[i] == '=' && keySize==0) {
                 // the first '=' mark the end of the key
-                target = (char*) *value;
+                target = value;
                 keySize = i;
+                skipped++;
             } else {
-                target[i - keySize - 1] = line[i];
+                target[i - keySize - skipped] = line[i];
             }
         }
-        valueSize = lineSize - keySize - 1;
+        valueSize = read - keySize - skipped;
+
         if (valueSize < 0) {
             perror("Invalid config file: Line without separator");
             exit(3);
@@ -61,10 +75,10 @@ Config* parseConfigFile(char* fileName) {
 
         key[keySize] = '\0'; value[valueSize] = '\0';
 
-        char* keyM = malloc(keySize * sizeof(char));
-        char* valueM = malloc(valueSize * sizeof(char));
-        strcpy(key, keyM);
-        strcpy(value, valueM);
+        char* keyM = (char*) malloc(keySize * sizeof(char));
+        char* valueM = (char*) malloc(valueSize * sizeof(char));
+        strcpy(keyM, key);
+        strcpy(valueM, value);
 
         if (!strcmp(keyM, "tun") && !config->tunName) {
             config->tunName = valueM;
@@ -85,7 +99,9 @@ Config* parseConfigFile(char* fileName) {
             exit(4);
         }
 
-        keySize = 0; valueSize = 0;
+        free(key);
+        free(value);
+        keySize = 0; valueSize = 0; skipped = 0;
     }
 
     fclose(file);
@@ -99,20 +115,18 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    printf("Hello");
-
     char* configFile = argv[1];
     if (argc == 3) configFile = argv[2];
     Config* config = parseConfigFile(configFile);
 
     if (argc == 3) {
         printf("Configuration:\n");
-        printf("\t- Tun Name    : %s\n", config->tunName);
-        printf("\t- Local IP    : %s\n", config->localIP);
-        printf("\t- Local Port  : %s\n", config->localPort);
-        printf("\t- Remote IP   : %s\n", config->remoteIP);
-        printf("\t- Remote PORT : %s\n", config->remotePort);
-        printf("\t- Options     : %s\n", config->options);
+        printf("\t- Tun Name    : %s \n", config->tunName);
+        printf("\t- Local IP    : %s \n", config->localIP);
+        printf("\t- Local Port  : %s \n", config->localPort);
+        printf("\t- Remote IP   : %s \n", config->remoteIP);
+        printf("\t- Remote PORT : %s \n", config->remotePort);
+        printf("\t- Options     : %s \n", config->options);
     }
 
     char* tunName = malloc(IFNAMSIZ);
@@ -123,7 +137,7 @@ int main(int argc, char **argv) {
         exit(2);
     }
     char cmd[1000];
-    sprintf(cmd, "./configure-tun.sh %s %s", tunName, config->localIP);
+    sprintf(cmd, "sh ./configure-tun.sh %s %s", tunName, config->localIP);
     system(cmd);
     if (argc == 3) printf("Tun Interface ('%s') configured successfully!\n", tunName);
 

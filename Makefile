@@ -65,7 +65,7 @@ test_extremite: folders $(OBJECTS) $(INCLUDES) $(MNSDIR)/test_extremite_in.c $(M
 .PHONY: send
 send:
 	@find ./out     -maxdepth 1 -type f -executable -exec cp '{}' $(REMOTE) \;
-	@find ./scripts -maxdepth 1 -type f -executable -exec cp '{}' $(REMOTE) \;
+	@find ./configs -maxdepth 1 -type f -executable -exec cp '{}' $(REMOTE) \;
 	@echo "Files sent to "$(REMOTE)"!"
 
 ###################################################################################################
