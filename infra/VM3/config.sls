@@ -1,13 +1,6 @@
 # Configuration eth1 et eth2
 # RAPPEL: eth0 est à vagrant, ne pas y toucher
 
-## Install redvd for upgrade
-radvd:
-  pkg:
-    - installed
-  service:
-    - running
-    - enable: True
 
 ## Désactivation de network-manager
 NetworkManager:
@@ -67,3 +60,11 @@ eth2:
 #      - name: LAN3-6
 #        ipaddr: fc00:1234:3::/64
 #        gateway: fc00:1234:4::36
+
+## Install redvd for upgrade
+radvd:
+  pkg:
+    - installed
+  service:
+    - running
+    - enable: True

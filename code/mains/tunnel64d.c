@@ -184,14 +184,13 @@ int main(int argc, char **argv) {
     if (radvd) {
         int cmd_size = 1000; // should be plenty space to create the command
         char *cmd = malloc(cmd_size * sizeof(char));
-        snprintf(cmd, cmd_size, "sh ./configure-radcd.sh ./radvd-vm%s.config", vmNb);
+        snprintf(cmd, cmd_size, "sh ./configure-radvd.sh ./radvd-vm%s.conf", vmNb);
         // system("chmod +x configure-tun.sh");
         system(cmd);
         free(cmd);
-        if (verbose) printf("Radvd configured successfully! (with ./radvd-vm%s.config)\n", vmNb);
+        if (verbose) printf("Radvd configured successfully! (with ./radvd-vm%s.conf)\n", vmNb);
     }
     
-
     ext_bid(config->localPort, tunfd,
             tunfd, config->remoteIP, config->remotePort,
             verbose);
