@@ -7,6 +7,8 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <linux/if.h>
+#include <linux/if_tun.h>
 
 #include "iftun.h"
 #include "extreminte.h"
@@ -15,6 +17,34 @@
 #define MAXLIGNE 80
 #define CIAO "Au revoir ...\n"
 
+int transfertSocketToTun (int socket, int tun) {
+    // Size of the buffer for the read, should at least be the MTU (1500) 
+    int BUFFER_SIZE = 1500 ;
+
+    // Check the file descriptors
+    if (socket < 0) {
+        perror("Invalid 'socket' File descriptor\n");
+        return -1;
+    }
+    if (tun < 0) {
+        perror("Invalid 'tun' File descriptor\n");
+        return -2;
+    }
+
+    // create the buffer
+    char *buffer = (char *) calloc(BUFFER_SIZE, sizeof(char));
+    int sizeRecv, writeSuccess;
+    
+    // Read from the socket and write to the tun
+    sizeRecv = recv(socket, buffer, BUFFER_SIZE, 0);
+    if (write(tun, buffer, sizeRecv) < 0) {
+        perror("Unable to write\n");
+        return -3;
+    }
+    
+    free(buffer);
+    return 0;
+}
 
 int ext_out(char* port,
             int outputFD,
@@ -72,6 +102,15 @@ int ext_out(char* port,
     }
     if (verbose) printf("listen!\n");
 
+    // crée l'interface tun0 sur le serveur
+    char* tun_name = malloc(IFNAMSIZ);
+    tun_name[0]='\0';
+    int tunfd = tun_alloc(tun_name, IFF_TUN);
+    if(tunfd < 0){
+        perror("Error during interface allocation");
+        exit(-1);
+    };
+
     while (1)
     {
         /* attendre et gérer indéfiniment les connexions entrantes */
@@ -91,11 +130,15 @@ int ext_out(char* port,
         } else {
             if (verbose) printf("accept! (%i) ip=%s port=%s\n", clientSocket, hotec, portc);
         }
-
+        
         /* traitement */
-        if (continuousTransfert(clientSocket, outputFD) < 0) {
+        if (transfertSocketToTun(clientSocket, outputFD) < 0) {
             perror("error, client");
         }
+        // if (transfertSocketToTun(clientSocket, tunfd) < 0) {
+        //     perror("error, client");
+        // }
+
     }
 
     close(serverSocket);

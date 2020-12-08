@@ -46,7 +46,7 @@ int tun_alloc(char *dev, int flags) {
 
 int continuousTransfert(int fromFD, int toFD) {
     // Size of the buffer for the read, should at least be the MTU (1500) 
-    int BUFFER_SIZE = 3000 ;
+    int BUFFER_SIZE = 1500 ;
 
     // Check the file descriptor
     if (fromFD < 0) {
