@@ -3,4 +3,5 @@
 
 cp $1 /etc/radvd.conf
 chmod 664 /etc/radvd.conf
+sudo service radvd start
 sudo service radvd restart
