@@ -66,8 +66,39 @@ Ce comportemant correspond à celui attendu: l'interface même virtuelle reste u
 
 ### 2.3. Récupération des paquets
 
-_4:_
+Lorsque l'on ping ```fc00:1234:ffff::1``` on obtient une réponse par contre on ne le voit pas sur la sortie standard.
+
+Inversement  losque l'on ping ```fc00:1234:ffff::10```, on obtient aucune réponse mais on peut l'observer sur la sortie standard.
+Avec hexdump:
+```
+00000090  00 00 00 00 00 00 00 02  60 00 00 00 00 40 3a 40  |........`....@:@|
+000000a0  fc 00 12 34 ff ff 00 00  00 00 00 00 00 00 00 01  |...4............|
+000000b0  fc 00 12 34 ff ff 00 00  00 00 00 00 00 00 00 10  |...4............|
+000000c0  80 00 40 a2 28 54 00 01  af 3b d0 5f 00 00 00 00  |..@.(T...;._....|
+000000d0  bb a4 00 00 00 00 00 00  10 11 12 13 14 15 16 17  |................|
+000000e0  18 19 1a 1b 1c 1d 1e 1f  20 21 22 23 24 25 26 27  |........ !"#$%&'|
+000000f0  28 29 2a 2b 2c 2d 2e 2f  30 31 32 33 34 35 36 37  |()*+,-./01234567|
+```
+
+On observe ce comportement pour la seconde ip car l'interface virtuelle écrit les données dans le fichier de tun0 pour que le système puisse le lire.
+
+Avec wireshark:
+```
+00000000  00 04 ff fe 00 00 00 00  00 00 00 00 00 00 86 dd  |................|
+00000010  60 00 00 00 00 40 3a 40  fc 00 12 34 ff ff 00 00  |`....@:@...4....|
+00000020  00 00 00 00 00 00 00 01  fc 00 12 34 ff ff 00 00  |...........4....|
+00000030  00 00 00 00 00 00 00 10  80 00 40 a2 28 54 00 01  |..........@.(T..|
+00000040  af 3b d0 5f 00 00 00 00  bb a4 00 00 00 00 00 00  |.;._............|
+00000050  10 11 12 13 14 15 16 17  18 19 1a 1b 1c 1d 1e 1f  |................|
+00000060  20 21 22 23 24 25 26 27  28 29 2a 2b 2c 2d 2e 2f  | !"#$%&'()*+,-./|
+00000070  30 31 32 33 34 35 36 37                           |01234567|
+00000078
+```
+On peut observer un décalage des bits du paket entre wireshark et hexdump.
+
+
 >IFF_NO_The PI tells the kernel that it does not need to provide message    information, that is, it only needs to provide "pure" IP messages and no other bytes.Otherwise (do not set IFF_NO_PI), which adds four extra bytes >>(2-byte identity and 2-byte protocol) at the beginning of the message.
+L'option IFF_NO_PI permet donc d'omettre certain bits du message retransmis.
 
 ## 3. Un tunnel simple pour IPv6
 
