@@ -68,3 +68,23 @@ radvd:
   service:
     - running
     - enable: True
+
+## Add echo server
+inetutils-inetd:
+  pkg:
+    - installed
+  service:
+    - running
+    - enable: True
+
+sudo update-inetd --add "echo stream tcp6 nowait nobody internal":
+  cmd:
+    - run
+
+service inetutils-inetd start:
+  cmd:
+    - run
+
+sudo service inetutils-inetd restart:
+  cmd:
+    - run
