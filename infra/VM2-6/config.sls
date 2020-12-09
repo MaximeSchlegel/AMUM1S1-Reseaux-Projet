@@ -1,4 +1,4 @@
-# Configuration eth1 et eth2
+# Configuration eth1 et et2
 # RAPPEL: eth0 est à vagrant, ne pas y toucher
 
 ## Désactivation de network-manager
@@ -12,7 +12,7 @@ ip route del default:
   cmd:
     - run
 
-##Configuration de VM1-6 interface
+## Configuration de VM2
 eth1:
   network.managed:
     - enabled: True
@@ -22,7 +22,7 @@ eth1:
     - ipv6proto: static
     - enable_ipv6: true
     - ipv6_autoconf: no
-    - ipv6ipaddr: fc00:1234:1::16
+    - ipv6ipaddr: fc00:1234:1::26
     - ipv6netmask: 64
 
 eth2:
@@ -34,22 +34,26 @@ eth2:
     - ipv6proto: static
     - enable_ipv6: true
     - ipv6_autoconf: no
-    - ipv6ipaddr: fc00:1234:3::16
+    - ipv6ipaddr: fc00:1234:2::26
     - ipv6netmask: 64
 
-## Configuration de la route vers LAN2-6 et 4-6 via VM2
-routes:
-  network.routes:
-    - name: eth1
-    - routes:
-      - name: LAN2-6
-        ipaddr: fc00:1234:2::/64
-        gateway: fc00:1234:1::26
-      - name: LAN4-6
-        ipaddr: fc00:1234:4::/64
-        gateway: fc00:1234:1::26
-      
-## Enable IPv6 forwarding
+## Routes toward LAN3-6 and LAN4-6
+routesEth1:
+ network.routes:
+   - name: eth1
+   - routes:
+     - name: LAN3-6
+       ipaddr: fc00:1234:3::/64
+       gateway: fc00:1234:1::16
+routesEth2:
+ network.routes:
+   - name: eth2
+   - routes:
+     - name: LAN4-6
+       ipaddr: fc00:1234:4::/64
+       gateway: fc00:1234:2::36
+
+## Enable ipv6 forwarding
 net.ipv6.conf.all.forwarding:
   sysctl:
     - present

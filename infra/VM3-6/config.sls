@@ -6,7 +6,36 @@ NetworkManager:
   service:
     - dead
     - enable: False
-    
+
+## Installation de iperf3
+iperf3:
+  pkg:
+    - installed
+## Installation de netcat6
+netcat6:
+  pkg:
+    - installed
+
+## Add echo server
+inetutils-inetd:
+  pkg:
+    - installed
+  service:
+    - running
+    - enable: True
+
+sudo update-inetd --add "echo stream tcp6 nowait nobody internal":
+  cmd:
+    - run
+
+service inetutils-inetd start:
+  cmd:
+    - run
+
+sudo service inetutils-inetd restart:
+  cmd:
+    - run
+
 ## Suppression de la passerelle par défaut
 ip route del default:
   cmd:
@@ -47,30 +76,10 @@ routes:
         gateway: fc00:1234:2::26
       - name: LAN3-6
         ipaddr: fc00:1234:3::/64
-        gateway: fc00:1234:4::3
+        gateway: fc00:1234:2::26
 
-## Enable IPv6 fowarding
+## Enable IPv6 forwarding
 net.ipv6.conf.all.forwarding:
   sysctl:
     - present
     - value: 1
-
-## Add echo server
-inetutils-inetd:
-  pkg:
-    - installed
-  service:
-    - running
-    - enable: True
-
-sudo update-inetd --add "echo stream tcp6 nowait nobody internal":
-  cmd:
-    - run
-
-service inetutils-inetd start:
-  cmd:
-    - run
-
-sudo service inetutils-inetd restart:
-  cmd:
-    - run

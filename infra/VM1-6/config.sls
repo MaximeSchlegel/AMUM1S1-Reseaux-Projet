@@ -6,7 +6,16 @@ NetworkManager:
   service:
     - dead
     - enable: False
-    
+
+## Installation de netcat6
+netcat6:
+  pkg:
+    - installed
+## Installation de iperf
+iperf3:
+  pkg:
+    - installed
+
 ## Suppression de la passerelle par défaut
 ip route del default:
   cmd:
@@ -47,10 +56,7 @@ routes:
         gateway: fc00:1234:1::26
       - name: LAN4-6
         ipaddr: fc00:1234:4::/64
-        gateway: fc00:1234:3::1
+        gateway: fc00:1234:1::26
       
-## Enable IPv6 forwarding
-net.ipv6.conf.all.forwarding:
-  sysctl:
-    - present
-    - value: 1
+s
+
