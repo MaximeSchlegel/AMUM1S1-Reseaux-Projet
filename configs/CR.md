@@ -9,13 +9,13 @@ Maxime SCHLEGEL
 J'ai choisit d'utiliser un adressage fixe pour ce projet. On a donc les adresses suivantes sur les VMs.
 |        | LAN1            | LAN2            | LAN3-6           | LAN4-6           | LAN1-6           | LAN2-6           |
 | ------ | --------------- | --------------- | ---------------- | ---------------- | ---------------- | ---------------- |
-| réseau | 172.16.2.128/28 | 172.16.2.160/28 | fc00:1234:3::/64 | fc00:1234:4::/64 | fc00:1234:1::/64 | fc00:1234:2::/64 |
-| VM1    | 172.16.2.131    |                 | fc00:1234:3::1   |                  |                  |                  |
+| réseau | 172.16.2.128/28 | 172.16.2.160/28 | fc00:1234 :3::/64 | fc00:1234 :4::/64 | fc00:1234 :1::/64 | fc00:1234 :2::/64 |
+| VM1    | 172.16.2.131    |                 | fc00:1234 :3::1   |                  |                  |                  |
 | VM2    | 172.16.2.132    | 172.16.2.162    |                  |                  |                  |                  |
-| VM3    |                 | 172.16.2.163    |                  | fc00:1234:4::3   |                  |                  |
-| VM1-6  |                 |                 | fc00:1234:3::16  |                  | fc00:1234:1::16  |                  |
-| VM2-6  |                 |                 |                  |                  | fc00:1234:1::26  | fc00:1234:2::26  |
-| VM3-6  |                 |                 |                  | fc00:1234:4::36  |                  | fc00:1234:2::36  |
+| VM3    |                 | 172.16.2.163    |                  | fc00:1234 :4::3   |                  |                  |
+| VM1-6  |                 |                 | fc00:1234 :3::16  |                  | fc00:1234 :1::16  |                  |
+| VM2-6  |                 |                 |                  |                  | fc00:1234 :1::26  | fc00:1234 :2::26  |
+| VM3-6  |                 |                 |                  | fc00:1234 :4::36  |                  | fc00:1234 :2::36  |
 
 
 Bien que la configuration salt rencontre des problème lors de l'installation des package (n'arrive pas à trouver les repo), une fois qu'elles ont reussit on arrive bien à 
@@ -103,3 +103,32 @@ L'option IFF_NO_PI permet donc d'omettre certain bits du message retransmis.
 ## 3. Un tunnel simple pour IPv6
 
 ### 3.1. Redirection du trafic entrant
+
+Une fois les deux extremités connectées on observe le traffic entrant sur l'ext-in sur la sortie standard de l'ext-out.
+
+### 3.2. Redirection du trafic sortant
+
+Si le traffic injecté à une extrmité du tunnel devait resortir sur l'extrémité "out" puis continuer sont parcours vers la machine visée.
+En effet si la VM servant de sortie au tunnel connais la route vers se destination elle devrait le transmettre.
+En effet le file descriptor tun0 fait office d'interface entre notre code et la VM (ce qui est ecrit dedans est retransmis et ce qui arrive est écrit dedans)
+
+Pour tester que la connectivité fonctionne bien, je propose d'utiliser le protocole suivant:
+    - capturer un packet icmp6 de l'extremité out vers une des VM de son"coté"
+    - l'injecter dans l'extrmité in
+    - observer avec wireshark si le packet est bien retransmis
+Si tout ce passe bien on devrait voir le packet ping être redirigé de l'extremité out (interface tun0) vers sa cible.
+Et nous devrions la voir chercher à renvoyer une réponse.
+
+
+### 3.4. Mise en place du tunnel entre VM1 et VM3 : Schémas
+
+![voir image ci-jointe](schema.png "fig1")
+
+Le tunel sera installé sur les VM1 et VM3 pour permettre la communication entre les LAN3-6 et LAN4-6.
+Un provenant de la VM1-6 sera d'abord routé vers la VM1 sur son interface "eth2" puis grâce à l'IP forwarding sur l'ip ```fc00:1234 :ffff::10```. Cela permettra aux serveur tunnel64d de lire le traffic entrant et de l'encapsulé dans des packets IPv4 pour VM3.
+Sur VM3 l'inverse se produit: les packets IPv4 sont descontruits et l'extremité out pousse le payload (donc le packet IPv6) sur son tun0. La stack réseaux s'occupe ensuite de rediriger le packet où il le faut.
+
+Le parcours de VM3 à VM1 est parfaitement symétrique à celui de VM1 à VM3.
+
+### 3.5. Mise en place du tunnel entre VM1 et VM3 : Système
+

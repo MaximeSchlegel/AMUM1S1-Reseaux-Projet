@@ -66,7 +66,7 @@ routesEth1:
  network.routes:
    - name: eth1
    - routes:
-     - name: LAN2
+     - name: LAN1
        ipaddr: 172.16.2.128/28
        gateway: 172.16.2.162
 

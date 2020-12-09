@@ -17,7 +17,8 @@ int main(int argc, char **argv) {
     }
     if (argc == 2) {
         return ext_out(argv[1], 1, 0);
-    } else if (argc == 3 && argv[2][1] == 'v') {
+    } else if (argc == 3) {
+        printf("%s\n", argv[2]);
         return ext_out(argv[2], 1, 1);
     } else {
         /* Create the tun */

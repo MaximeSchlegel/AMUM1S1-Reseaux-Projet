@@ -25,7 +25,6 @@ eth1:
     - proto: none
     - ipaddr: 172.16.2.131
     - netmask: 28
-    # - gateway: 172.16.2.132 # Gateway as all the IPv4 that is not directly acessible need to be routed throught VM2
 
 eth2:
   network.managed:
@@ -33,12 +32,11 @@ eth2:
     - type: eth
     - proto: none
     - enable_ipv4: false
-    - ipv6proto: static
     - enable_ipv6: true
     - ipv6_autoconf: no
+    - ipv6proto: static
     - ipv6ipaddr: fc00:1234:3::1
     - ipv6netmask: 64
-    # - ipv6gateway: fc00:1234:3::16 # Gateway as all the IPv6 that is not directly acessible need to be routed throught VM1-6
 
 
 ## Configuration de la route vers LAN2, LAN1-6, LAN2-6 et 4-6 via VM2

@@ -28,9 +28,8 @@ eth1:
     - type: eth
     - proto: none
     - enable_ipv4: false
-    - ipv6proto: static
     - enable_ipv6: true
-    - ipv6_autoconf: no
+    - ipv6proto: static
     - ipv6ipaddr: fc00:1234:1::16
     - ipv6netmask: 64
 
@@ -40,9 +39,8 @@ eth2:
     - type: eth
     - proto: none
     - enable_ipv4: false
-    - ipv6proto: static
     - enable_ipv6: true
-    - ipv6_autoconf: no
+    - ipv6proto: static
     - ipv6ipaddr: fc00:1234:3::16
     - ipv6netmask: 64
 
@@ -58,5 +56,8 @@ routes:
         ipaddr: fc00:1234:4::/64
         gateway: fc00:1234:1::26
       
-s
-
+# Enable IPv6 forwarding
+net.ipv6.conf.all.forwarding:
+  sysctl:
+    - present
+    - value: 1
