@@ -290,3 +290,13 @@ Voici les résultat du benchmarch de la bande passante en fonction de la taille 
 | gros      | 127 Mbits/sec   |
 | très gros | 98.5 Mbits/sec  |
 
+## 5. Améliorations
+
+### 5.6. Annonce de route IPv6
+
+J'ai essayé de mettre en place la publicité automatique avec Radvd pour les deux extrémité.
+J'ai bien réussit à mettre en place les services et leur configuration:
+- la VM1 publie la route vers ```fc00:1234:4::/64```
+- la VM3 publie la route vers ```fc00:1234:3::/64```
+
+Mais les VM1-6 et VM3-6 ne semble pas les prendre ne compte.
