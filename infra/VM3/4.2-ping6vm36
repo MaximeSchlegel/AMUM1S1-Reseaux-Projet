@@ -1,0 +1,144 @@
+No.     Time           Source                Destination           Protocol Length Info
+      1 0.000000000    172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 1: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.000205000    172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=1359307 TSecr=1398894
+
+Frame 2: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 109, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      3 0.000499000    fc00:1234:3::16       fc00:1234:4::36       ICMPv6   120    Echo (ping) request id=0x08c1, seq=1, hop limit=63 (no response found!)
+
+Frame 3: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:3::16 (fc00:1234:3::16), Dst: fc00:1234:4::36 (fc00:1234:4::36)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+      4 0.000517000    fc00:1234:3::16       fc00:1234:4::36       ICMPv6   120    Echo (ping) request id=0x08c1, seq=1, hop limit=62 (reply in 5)
+
+Frame 4: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:3::16 (fc00:1234:3::16), Dst: fc00:1234:4::36 (fc00:1234:4::36)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+      5 0.000904000    fc00:1234:4::36       fc00:1234:3::16       ICMPv6   120    Echo (ping) reply id=0x08c1, seq=1, hop limit=64 (request in 4)
+
+Frame 5: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:4::36 (fc00:1234:4::36), Dst: fc00:1234:3::16 (fc00:1234:3::16)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+      6 0.000916000    fc00:1234:4::36       fc00:1234:3::16       ICMPv6   120    Echo (ping) reply id=0x08c1, seq=1, hop limit=63
+
+Frame 6: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:4::36 (fc00:1234:4::36), Dst: fc00:1234:3::16 (fc00:1234:3::16)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+      7 0.001326000    172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 7: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      8 0.002774000    172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=1398895 TSecr=1359308
+
+Frame 8: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 109, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      9 5.007832000    CadmusCo_21:cc:ed                           ARP      62     Who has 172.16.2.163?  Tell 172.16.2.162
+
+Frame 9: 62 bytes on wire (496 bits), 62 bytes captured (496 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (request)
+VSS-Monitoring ethernet trailer, Source Port: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     10 5.007853000    CadmusCo_24:3b:a6                           ARP      44     172.16.2.163 is at 08:00:27:24:3b:a6
+
+Frame 10: 44 bytes on wire (352 bits), 44 bytes captured (352 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (reply)
+
+No.     Time           Source                Destination           Protocol Length Info
+     11 5.009469000    fe80::a00:27ff:fee8:c3f9 fc00:1234:4::36       ICMPv6   88     Neighbor Solicitation for fc00:1234:4::36 from 08:00:27:e8:c3:f9
+
+Frame 11: 88 bytes on wire (704 bits), 88 bytes captured (704 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fe80::a00:27ff:fee8:c3f9 (fe80::a00:27ff:fee8:c3f9), Dst: fc00:1234:4::36 (fc00:1234:4::36)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     12 5.010096000    fc00:1234:4::36       fe80::a00:27ff:fee8:c3f9 ICMPv6   80     Neighbor Advertisement fc00:1234:4::36 (rtr, sol)
+
+Frame 12: 80 bytes on wire (640 bits), 80 bytes captured (640 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:4::36 (fc00:1234:4::36), Dst: fe80::a00:27ff:fee8:c3f9 (fe80::a00:27ff:fee8:c3f9)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     13 5.016586000    fe80::a00:27ff:fe7c:4f20 fc00:1234:4::3        ICMPv6   88     Neighbor Solicitation for fc00:1234:4::3 from 08:00:27:7c:4f:20
+
+Frame 13: 88 bytes on wire (704 bits), 88 bytes captured (704 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fe80::a00:27ff:fe7c:4f20 (fe80::a00:27ff:fe7c:4f20), Dst: fc00:1234:4::3 (fc00:1234:4::3)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     14 5.016609000    fc00:1234:4::3        fe80::a00:27ff:fe7c:4f20 ICMPv6   80     Neighbor Advertisement fc00:1234:4::3 (rtr, sol)
+
+Frame 14: 80 bytes on wire (640 bits), 80 bytes captured (640 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:4::3 (fc00:1234:4::3), Dst: fe80::a00:27ff:fe7c:4f20 (fe80::a00:27ff:fe7c:4f20)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     15 10.017999000   fe80::a00:27ff:fee8:c3f9 fe80::a00:27ff:fe7c:4f20 ICMPv6   88     Neighbor Solicitation for fe80::a00:27ff:fe7c:4f20 from 08:00:27:e8:c3:f9
+
+Frame 15: 88 bytes on wire (704 bits), 88 bytes captured (704 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fe80::a00:27ff:fee8:c3f9 (fe80::a00:27ff:fee8:c3f9), Dst: fe80::a00:27ff:fe7c:4f20 (fe80::a00:27ff:fe7c:4f20)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     16 10.019311000   fe80::a00:27ff:fe7c:4f20 fe80::a00:27ff:fee8:c3f9 ICMPv6   80     Neighbor Advertisement fe80::a00:27ff:fe7c:4f20 (rtr, sol)
+
+Frame 16: 80 bytes on wire (640 bits), 80 bytes captured (640 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fe80::a00:27ff:fe7c:4f20 (fe80::a00:27ff:fe7c:4f20), Dst: fe80::a00:27ff:fee8:c3f9 (fe80::a00:27ff:fee8:c3f9)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     17 10.025842000   fe80::a00:27ff:fe7c:4f20 fe80::a00:27ff:fee8:c3f9 ICMPv6   88     Neighbor Solicitation for fe80::a00:27ff:fee8:c3f9 from 08:00:27:7c:4f:20
+
+Frame 17: 88 bytes on wire (704 bits), 88 bytes captured (704 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fe80::a00:27ff:fe7c:4f20 (fe80::a00:27ff:fe7c:4f20), Dst: fe80::a00:27ff:fee8:c3f9 (fe80::a00:27ff:fee8:c3f9)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+     18 10.025880000   fe80::a00:27ff:fee8:c3f9 fe80::a00:27ff:fe7c:4f20 ICMPv6   80     Neighbor Advertisement fe80::a00:27ff:fee8:c3f9 (rtr, sol)
+
+Frame 18: 80 bytes on wire (640 bits), 80 bytes captured (640 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fe80::a00:27ff:fee8:c3f9 (fe80::a00:27ff:fee8:c3f9), Dst: fe80::a00:27ff:fe7c:4f20 (fe80::a00:27ff:fe7c:4f20)
+Internet Control Message Protocol v6

@@ -9,4 +9,5 @@ ip -6 addr add $2"/64" dev $1
 
 sysctl -q -w net.ipv6.conf.all.forwarding=1
 
+ip -6 route del $3
 ip -6 route add $3 via $2"0" dev $1

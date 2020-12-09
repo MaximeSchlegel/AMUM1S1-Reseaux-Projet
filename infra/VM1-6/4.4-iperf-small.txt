@@ -1,0 +1,10 @@
+Connecting to host fc00:1234:4::36, port 5201
+[  4] local fc00:1234:3::16 port 44054 connected to fc00:1234:4::36 port 5201
+[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+[  4]   0.00-0.00   sec   100 Bytes  2.16 Mbits/sec    0   13.9 KBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-0.00   sec   100 Bytes  2.16 Mbits/sec    0             sender
+[  4]   0.00-0.00   sec   100 Bytes  2.16 Mbits/sec                  receiver
+
+iperf Done.

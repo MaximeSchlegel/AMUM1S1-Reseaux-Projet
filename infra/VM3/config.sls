@@ -46,7 +46,6 @@ eth1:
     - proto: none
     - ipaddr: 172.16.2.163
     - netmask: 28
-    # - gateway: 172.16.2.162 # Gateway as all the IPv4 that is not directly acessible need to be routed throught VM2
 
 eth2:
   network.managed:

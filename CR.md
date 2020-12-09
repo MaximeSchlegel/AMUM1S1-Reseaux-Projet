@@ -132,3 +132,161 @@ Le parcours de VM3 à VM1 est parfaitement symétrique à celui de VM1 à VM3.
 
 ### 3.5. Mise en place du tunnel entre VM1 et VM3 : Système
 
+En lançant ```tunnel64d``` sur la VM1 et VM3 on arive bien à échanger des messages (icmp, tcp) entre les LAN au par avant déconnectés.
+
+## 4. Validation Fonctionnelle
+
+### 4.1. Configuration
+
+- VM1-6:
+    ```
+    > ip -6 addr
+    3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+        inet6 fc00:1234:1::16/64 scope global 
+        valid_lft forever preferred_lft forever
+    4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+        inet6 fc00:1234:3::16/64 scope global 
+        valid_lft forever preferred_lft forever
+
+    > ip -6 route
+    fc00:1234:1::/64 dev eth1  proto kernel  metric 256 
+    fc00:1234:2::/64 via fc00:1234:1::26 dev eth1  metric 1024 
+    fc00:1234:3::/64 dev eth2  proto kernel  metric 256 
+    fc00:1234:4::/64 via fc00:1234:3::1 dev eth2  metric 1024 
+    fe80::/64 dev eth0  proto kernel  metric 256 
+    fe80::/64 dev eth1  proto kernel  metric 256 
+    fe80::/64 dev eth2  proto kernel  metric 256
+    ```
+
+- VM1:
+    ```
+    > ip -6 addr
+    3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+        inet6 fe80::a00:27ff:fe87:33bb/64 scope link 
+            valid_lft forever preferred_lft forever
+    4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+        inet6 fc00:1234:3::1/64 scope global 
+            valid_lft forever preferred_lft forever
+    11: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qlen 500
+        inet6 fc00:1234:ffff::1/64 scope global 
+            valid_lft forever preferred_lft forever
+
+    > ip -6 route
+    fc00:1234:1::/64 dev eth1  proto kernel  metric 256 
+    fc00:1234:2::/64 via fc00:1234:1::26 dev eth1  metric 1024 
+    fc00:1234:3::/64 dev eth2  proto kernel  metric 256 
+    fc00:1234:4::/64 via fc00:1234:3::1 dev eth2  metric 1024 
+    fe80::/64 dev eth0  proto kernel  metric 256 
+    fe80::/64 dev eth1  proto kernel  metric 256 
+    fe80::/64 dev eth2  proto kernel  metric 256
+    ```
+
+- VM2: 
+    ```
+    > ip addr
+    3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000 
+        inet 172.16.2.132/28 brd 172.16.2.143 scope global eth1 
+            valid_lft forever preferred_lft forever
+    4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000 
+        inet 172.16.2.162/28 brd 172.16.2.175 scope global eth2 
+            valid_lft forever preferred_lft forever
+
+    > ip route
+    10.0.2.0/24 dev eth0  proto kernel  scope link  src 10.0.2.15 
+    172.16.2.128/28 dev eth1  proto kernel  scope link  src 172.16.2.132 
+    172.16.2.160/28 dev eth2  proto kernel  scope link  src 172.16.2.162
+    ```
+
+- VM3:
+    ```
+    > ip -6 addr
+    3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+        inet 172.16.2.163/28 brd 172.16.2.175 scope global eth1
+            valid_lft forever preferred_lft forever
+    4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+        inet6 fc00:1234:4::3/64 scope global 
+            valid_lft forever preferred_lft forever
+    9: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 500
+        inet6 fc00:1234:ffff::1/64 scope global 
+            valid_lft forever preferred_lft forever
+
+    > ip -6 route
+    fc00:1234:1::/64 via fc00:1234:4::36 dev eth2  metric 1024 
+    fc00:1234:2::/64 via fc00:1234:4::36 dev eth2  metric 1024 
+    fc00:1234:3::/64 via fc00:1234:ffff::10 dev tun0  metric 1024 
+    fc00:1234:4::/64 dev eth2  proto kernel  metric 256 
+    fc00:1234:ffff::/64 dev tun0  proto kernel  metric 256 
+    fe80::/64 dev eth0  proto kernel  metric 256 
+    fe80::/64 dev eth1  proto kernel  metric 256 
+    fe80::/64 dev eth2  proto kernel  metric 256
+    ```
+
+- VM3-6:
+    ```
+    > ip -6 addr
+    3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+        inet6 fc00:1234:2::36/64 scope global 
+            valid_lft forever preferred_lft forever
+    4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qlen 1000
+        inet6 fc00:1234:4::36/64 scope global 
+            valid_lft forever preferred_lft forever
+    
+    > ip -6 route
+    fc00:1234:1::/64 via fc00:1234:2::26 dev eth1  metric 1024 
+    fc00:1234:2::/64 dev eth1  proto kernel  metric 256 
+    fc00:1234:3::/64 via fc00:1234:4::3 dev eth2  metric 1024 
+    fc00:1234:4::/64 dev eth2  proto kernel  metric 256 
+    fe80::/64 dev eth0  proto kernel  metric 256 
+    fe80::/64 dev eth1  proto kernel  metric 256 
+    fe80::/64 dev eth2  proto kernel  metric 256
+    ```
+
+J'ai choisit d'omettre les liens locaux ainsi que les interfaces qui ne sont pas utlisés dans ce projet pour avoir des configurations plus courtes.
+Les routes sont cohérentes avec le fonctionement du tunnel: l'entré la plus proche (ici la seule) remplace la VM2-6 dans les routes.
+
+### 4.2. Couche 3
+
+Les pings entre les VM1-6 et VM3-6 sont bien retransmis par le tunnel dans les deux sens.
+
+```
+No.     Time           Source                Destination           Protocol Length Info
+      1 0.000000000    fc00:1234:3::16       fc00:1234:4::36       ICMPv6   120    Echo (ping) request id=0x08c1, seq=1, hop limit=64 (reply in 2)
+
+Frame 1: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:3::16 (fc00:1234:3::16), Dst: fc00:1234:4::36 (fc00:1234:4::36)
+Internet Control Message Protocol v6
+
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.003780000    fc00:1234:4::36       fc00:1234:3::16       ICMPv6   120    Echo (ping) reply id=0x08c1, seq=1, hop limit=62 (request in 1)
+
+Frame 2: 120 bytes on wire (960 bits), 120 bytes captured (960 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 6, Src: fc00:1234:4::36 (fc00:1234:4::36), Dst: fc00:1234:3::16 (fc00:1234:3::16)
+Internet Control Message Protocol v6
+```
+
+### 4.3. Couche 4
+
+Comme pour les ping le serveurs echo est maintenant fonctionnel:
+```
+root@vm1-6:/mnt/partage/tunnel# cat HelloWorld.txt 
+Hello echo server !
+
+root@vm1-6:/mnt/partage/tunnel# nc6 fc00:1234:4::36 echo < HelloWorld.txt 
+Hello echo server !
+
+^C
+```
+
+### 4.4. Couche 4 : bande passante
+
+Voici les résultat du benchmarch de la bande passante en fonction de la taille du tampon.
+
+|  taille   |  Bandwidth      |
+| --------- | --------------- |
+| petit     | 2.16 Mbits/sec  |
+| moyen     | 42.8 Mbits/sec  |
+| gros      | 127 Mbits/sec   |
+| très gros | 98.5 Mbits/sec  |
+

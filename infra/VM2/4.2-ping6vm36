@@ -1,0 +1,467 @@
+No.     Time           Source                Destination           Protocol Length Info
+      1 0.000000000    172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 1: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.000018000    172.16.2.131          172.16.2.163          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 2: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      3 0.000811000    172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=1323627 TSecr=1363214
+
+Frame 3: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 109, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      4 0.000820000    172.16.2.163          172.16.2.131          TCP      68     [TCP Dup ACK 3#1] 123→58343 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=1323627 TSecr=1363214
+
+Frame 4: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 109, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      5 0.001904000    172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 5: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      6 0.001912000    172.16.2.163          172.16.2.131          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 6: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 1, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+      7 0.002596000    172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=1363214 TSecr=1323627
+
+Frame 7: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 109, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      8 0.002601000    172.16.2.131          172.16.2.163          TCP      68     [TCP Dup ACK 7#1] 123→54330 [ACK] Seq=1 Ack=109 Win=227 Len=0 TSval=1363214 TSecr=1323627
+
+Frame 8: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 109, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      9 1.001140000    172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 9: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 109, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     10 1.001157000    172.16.2.131          172.16.2.163          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 10: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 109, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     11 1.002024000    172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=217 Win=227 Len=0 TSval=1323877 TSecr=1363464
+
+Frame 11: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 217, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     12 1.002033000    172.16.2.163          172.16.2.131          TCP      68     [TCP Dup ACK 11#1] 123→58343 [ACK] Seq=1 Ack=217 Win=227 Len=0 TSval=1323877 TSecr=1363464
+
+Frame 12: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 217, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     13 1.003211000    172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 13: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 109, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     14 1.003219000    172.16.2.163          172.16.2.131          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 14: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 109, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     15 1.003989000    172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=217 Win=227 Len=0 TSval=1363465 TSecr=1323878
+
+Frame 15: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 217, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     16 1.003996000    172.16.2.131          172.16.2.163          TCP      68     [TCP Dup ACK 15#1] 123→54330 [ACK] Seq=1 Ack=217 Win=227 Len=0 TSval=1363465 TSecr=1323878
+
+Frame 16: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 217, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     17 2.003620000    172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 17: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 217, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     18 2.003638000    172.16.2.131          172.16.2.163          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 18: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 217, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     19 2.004740000    172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=325 Win=227 Len=0 TSval=1324128 TSecr=1363714
+
+Frame 19: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 325, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     20 2.004751000    172.16.2.163          172.16.2.131          TCP      68     [TCP Dup ACK 19#1] 123→58343 [ACK] Seq=1 Ack=325 Win=227 Len=0 TSval=1324128 TSecr=1363714
+
+Frame 20: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 325, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     21 2.006925000    172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 21: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 217, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     22 2.006936000    172.16.2.163          172.16.2.131          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 22: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 217, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     23 2.008034000    172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=325 Win=227 Len=0 TSval=1363716 TSecr=1324128
+
+Frame 23: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 325, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     24 2.008044000    172.16.2.131          172.16.2.163          TCP      68     [TCP Dup ACK 23#1] 123→54330 [ACK] Seq=1 Ack=325 Win=227 Len=0 TSval=1363716 TSecr=1324128
+
+Frame 24: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 325, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     25 5.009693000    CadmusCo_21:cc:ed                           ARP      44     Who has 172.16.2.163?  Tell 172.16.2.162
+
+Frame 25: 44 bytes on wire (352 bits), 44 bytes captured (352 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (request)
+
+No.     Time           Source                Destination           Protocol Length Info
+     26 5.009952000    CadmusCo_a6:99:75                           ARP      44     Who has 172.16.2.131?  Tell 172.16.2.132
+
+Frame 26: 44 bytes on wire (352 bits), 44 bytes captured (352 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (request)
+
+No.     Time           Source                Destination           Protocol Length Info
+     27 5.010224000    CadmusCo_24:3b:a6                           ARP      62     172.16.2.163 is at 08:00:27:24:3b:a6
+
+Frame 27: 62 bytes on wire (496 bits), 62 bytes captured (496 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (reply)
+VSS-Monitoring ethernet trailer, Source Port: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     28 5.011221000    CadmusCo_87:33:bb                           ARP      62     172.16.2.131 is at 08:00:27:87:33:bb
+
+Frame 28: 62 bytes on wire (496 bits), 62 bytes captured (496 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (reply)
+VSS-Monitoring ethernet trailer, Source Port: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     29 15.650293000   172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 29: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 325, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     30 15.650306000   172.16.2.163          172.16.2.131          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 30: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 325, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     31 15.651044000   172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=433 Win=227 Len=0 TSval=1367126 TSecr=1327539
+
+Frame 31: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 433, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     32 15.651053000   172.16.2.131          172.16.2.163          TCP      68     [TCP Dup ACK 31#1] 123→54330 [ACK] Seq=1 Ack=433 Win=227 Len=0 TSval=1367126 TSecr=1327539
+
+Frame 32: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 433, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     33 15.652193000   172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 33: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 325, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     34 15.652201000   172.16.2.131          172.16.2.163          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 34: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 325, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     35 15.652962000   172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=433 Win=227 Len=0 TSval=1327540 TSecr=1367127
+
+Frame 35: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 433, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     36 15.652970000   172.16.2.163          172.16.2.131          TCP      68     [TCP Dup ACK 35#1] 123→58343 [ACK] Seq=1 Ack=433 Win=227 Len=0 TSval=1327540 TSecr=1367127
+
+Frame 36: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 433, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     37 16.652992000   172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 37: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 433, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     38 16.653013000   172.16.2.163          172.16.2.131          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 38: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 433, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     39 16.654755000   172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=541 Win=227 Len=0 TSval=1367377 TSecr=1327790
+
+Frame 39: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 541, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     40 16.654772000   172.16.2.131          172.16.2.163          TCP      68     [TCP Dup ACK 39#1] 123→54330 [ACK] Seq=1 Ack=541 Win=227 Len=0 TSval=1367377 TSecr=1327790
+
+Frame 40: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 541, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     41 16.657305000   172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 41: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 433, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     42 16.657321000   172.16.2.131          172.16.2.163          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 42: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 433, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     43 16.658953000   172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=541 Win=227 Len=0 TSval=1327791 TSecr=1367378
+
+Frame 43: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 541, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     44 16.658964000   172.16.2.163          172.16.2.131          TCP      68     [TCP Dup ACK 43#1] 123→58343 [ACK] Seq=1 Ack=541 Win=227 Len=0 TSval=1327791 TSecr=1367378
+
+Frame 44: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 541, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     45 142.721798000  172.16.2.131          172.16.2.163          NTP      176    reserved, reserved
+
+Frame 45: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 541, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     46 142.721814000  172.16.2.131          172.16.2.163          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 46: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 58343 (58343), Dst Port: 123 (123), Seq: 541, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     47 142.722622000  172.16.2.163          172.16.2.131          TCP      68     123→58343 [ACK] Seq=1 Ack=649 Win=227 Len=0 TSval=1359307 TSecr=1398894
+
+Frame 47: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 649, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     48 142.722631000  172.16.2.163          172.16.2.131          TCP      68     [TCP Dup ACK 47#1] 123→58343 [ACK] Seq=1 Ack=649 Win=227 Len=0 TSval=1359307 TSecr=1398894
+
+Frame 48: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 58343 (58343), Seq: 1, Ack: 649, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     49 142.723748000  172.16.2.163          172.16.2.131          NTP      176    reserved, reserved
+
+Frame 49: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 541, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     50 142.723755000  172.16.2.163          172.16.2.131          NTP      176    [TCP Retransmission] reserved, reserved
+
+Frame 50: 176 bytes on wire (1408 bits), 176 bytes captured (1408 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.163 (172.16.2.163), Dst: 172.16.2.131 (172.16.2.131)
+Transmission Control Protocol, Src Port: 54330 (54330), Dst Port: 123 (123), Seq: 541, Ack: 1, Len: 108
+Network Time Protocol (reserved, reserved)
+
+No.     Time           Source                Destination           Protocol Length Info
+     51 142.724435000  172.16.2.131          172.16.2.163          TCP      68     123→54330 [ACK] Seq=1 Ack=649 Win=227 Len=0 TSval=1398895 TSecr=1359308
+
+Frame 51: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 649, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     52 142.724441000  172.16.2.131          172.16.2.163          TCP      68     [TCP Dup ACK 51#1] 123→54330 [ACK] Seq=1 Ack=649 Win=227 Len=0 TSval=1398895 TSecr=1359308
+
+Frame 52: 68 bytes on wire (544 bits), 68 bytes captured (544 bits) on interface 0
+Linux cooked capture
+Internet Protocol Version 4, Src: 172.16.2.131 (172.16.2.131), Dst: 172.16.2.163 (172.16.2.163)
+Transmission Control Protocol, Src Port: 123 (123), Dst Port: 54330 (54330), Seq: 1, Ack: 649, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     53 147.729643000  CadmusCo_21:cc:ed                           ARP      44     Who has 172.16.2.163?  Tell 172.16.2.162
+
+Frame 53: 44 bytes on wire (352 bits), 44 bytes captured (352 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (request)
+
+No.     Time           Source                Destination           Protocol Length Info
+     54 147.729866000  CadmusCo_a6:99:75                           ARP      44     Who has 172.16.2.131?  Tell 172.16.2.132
+
+Frame 54: 44 bytes on wire (352 bits), 44 bytes captured (352 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (request)
+
+No.     Time           Source                Destination           Protocol Length Info
+     55 147.730184000  CadmusCo_24:3b:a6                           ARP      62     172.16.2.163 is at 08:00:27:24:3b:a6
+
+Frame 55: 62 bytes on wire (496 bits), 62 bytes captured (496 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (reply)
+VSS-Monitoring ethernet trailer, Source Port: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     56 147.730515000  CadmusCo_87:33:bb                           ARP      62     172.16.2.131 is at 08:00:27:87:33:bb
+
+Frame 56: 62 bytes on wire (496 bits), 62 bytes captured (496 bits) on interface 0
+Linux cooked capture
+Address Resolution Protocol (reply)
+VSS-Monitoring ethernet trailer, Source Port: 0
